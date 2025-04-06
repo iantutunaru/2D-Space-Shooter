@@ -1,0 +1,70 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags: []
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - 
+  - Water
+  - UI
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0
+  - name: 1_Cosmos
+    uniqueID: 4006821763
+    locked: 0
+  - name: 2_Stars
+    uniqueID: 3732984871
+    locked: 0
+  - name: 3_Planets
+    uniqueID: 124651777
+    locked: 0
+  - name: 4_Asteroids
+    uniqueID: 2770748237
+    locked: 0
+  - name: 5_Enemy
+    uniqueID: 3176479675
+    locked: 0
+  - name: 6_Player
+    uniqueID: 95365519
+    locked: 0
+  - name: 7_Pickups
+    uniqueID: 800226597
+    locked: 0
+  - name: 8_Projectiles
+    uniqueID: 3837666455
+    locked: 0
+  - name: 9_UI
+    uniqueID: 3168333139
+    locked: 0
