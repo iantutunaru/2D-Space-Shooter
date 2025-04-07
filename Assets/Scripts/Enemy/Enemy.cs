@@ -6,10 +6,12 @@ public class Enemy : MonoBehaviour
 {
     [SerializeField] private EnemyCollisionDetection collisionDetection;
     [SerializeField] private EnemyMovement movement;
+    [SerializeField] private EnemySounds enemySounds;
     
     public void Init(ScoreManager scoreManager)
     {
         Debug.Log("Enemy initialized.");
         collisionDetection.SetScoreManager(scoreManager);
+        collisionDetection.SetAudio(enemySounds);
     }
 }

@@ -9,10 +9,16 @@ public class EnemyCollisionDetection : MonoBehaviour
     [SerializeField] private int scoreValue;
     
     private ScoreManager _scoreManager;
+    private EnemySounds _enemySounds;
 
     public void SetScoreManager(ScoreManager scoreManager)
     {
         _scoreManager = scoreManager;
+    }
+
+    public void SetAudio(EnemySounds enemySounds)
+    {
+        _enemySounds = enemySounds;
     }
     
     void Update()
@@ -37,6 +43,7 @@ public class EnemyCollisionDetection : MonoBehaviour
             if (!projectile.isEnemy())
             {
                 _scoreManager.AddScore(scoreValue);
+                _enemySounds.PlayDeathSound();
                 Destroy(this.gameObject);
                 Destroy(projectile.gameObject);
             }
@@ -47,6 +54,7 @@ public class EnemyCollisionDetection : MonoBehaviour
         if (player != null)
         {
             _scoreManager.AddScore(scoreValue);
+            _enemySounds.PlayDeathSound();
             Destroy(this.gameObject);
 
             if (player.CanBeDestroyed())

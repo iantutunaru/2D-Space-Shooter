@@ -28,7 +28,6 @@ public class PlayerShooting : MonoBehaviour
             foreach (PlayerWeapon weapon in _weapons)
             {
                 weapon.Fire();
-                
             }
         }
     }

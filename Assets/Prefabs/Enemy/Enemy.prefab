@@ -120,6 +120,7 @@ GameObject:
   - component: {fileID: 3856130706411750287}
   - component: {fileID: 4299666251461128612}
   - component: {fileID: -4157832866056269553}
+  - component: {fileID: -2178476769455104187}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -230,6 +231,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   collisionDetection: {fileID: -4157832866056269553}
   movement: {fileID: 4299666251461128612}
+  enemySounds: {fileID: -2178476769455104187}
 --- !u!114 &4299666251461128612
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -259,7 +261,22 @@ MonoBehaviour:
   canBeDestroyed: 0
   screenBoundsPosition: 13.2
   scoreValue: 0
-  enemy: {fileID: 3856130706411750287}
+--- !u!114 &-2178476769455104187
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7416421309656685856}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75bc6ef43eba747499d50f20d26e71cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  deathSounds:
+  - {fileID: 8300000, guid: cd8b2fde281808243b1834a319d606a4, type: 3}
+  - {fileID: 8300000, guid: dfe2d1de75110b14fa52067d08260b8c, type: 3}
+  - {fileID: 8300000, guid: 1fe4becff4b0d7c49a590a19b398f598, type: 3}
 --- !u!1 &7572601791406074540
 GameObject:
   m_ObjectHideFlags: 0

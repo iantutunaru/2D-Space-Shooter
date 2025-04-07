@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Player : MonoBehaviour
 {
@@ -11,9 +12,15 @@ public class Player : MonoBehaviour
     [SerializeField] private PlayerPickupManager playerPickupManager;
     [SerializeField] private PlayerAnimator playerAnimator;
     [SerializeField] private Transform startingPosition;
+    [SerializeField] private PlayerInput playerInput;
     
     private bool _canBeDestroyed = true;
 
+    public PlayerInput GetPlayerInput()
+    {
+        return playerInput;
+    }
+    
     private void OnEnable()
     {
         playerMovement.MovementSpeedChanged += OnMovementSpeedChanged;

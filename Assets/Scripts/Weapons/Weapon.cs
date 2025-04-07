@@ -10,6 +10,7 @@ public class Weapon : MonoBehaviour
     [SerializeField] private float delay = 0.0f;
     [SerializeField] private float fireRateTimer = 0f;
     [SerializeField] private float delayTimer = 0f;
+    [SerializeField] private WeaponSounds weaponSounds;
     
     void Update()
     {
@@ -36,6 +37,7 @@ public class Weapon : MonoBehaviour
 
     public void Fire()
     {
+        weaponSounds.PlayShootingSounds();
         GameObject firedProjectile = Instantiate(projectile.gameObject, transform.position, Quaternion.identity);
     }
 }

@@ -11,6 +11,7 @@ public class PlayerWeapon : MonoBehaviour
     [SerializeField] private float delayTimer = 0f;
     [SerializeField] private Transform[] firePoints;
     [SerializeField] private Animator animator;
+    [SerializeField] private PlayerSounds playerWeaponSounds;
 
     private String _gunShot = "WeaponShot";
     
@@ -18,6 +19,7 @@ public class PlayerWeapon : MonoBehaviour
     {
         foreach (Transform firePoint in firePoints)
         {
+            playerWeaponSounds.PlayShootingSounds();
             GameObject firedProjectile = Instantiate(projectile.gameObject, firePoint.position, Quaternion.identity);
         }
         

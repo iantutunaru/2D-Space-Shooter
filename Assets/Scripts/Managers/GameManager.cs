@@ -7,19 +7,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] private ScoreManager scoreManager;
     [SerializeField] private WaveManager waveManager;
     [SerializeField] private SpawnManager spawnManager;
+    [SerializeField] private SoundFXManager soundFXManager;
     
     public ScoreManager ScoreManager { get { return scoreManager; } }
     public WaveManager WaveManager { get { return waveManager; } }
     public SpawnManager SpawnManager { get { return spawnManager; } }
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public SoundFXManager SoundFXManager { get { return soundFXManager; } }
 }
