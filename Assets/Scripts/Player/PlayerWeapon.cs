@@ -20,7 +20,8 @@ public class PlayerWeapon : MonoBehaviour
         foreach (Transform firePoint in firePoints)
         {
             playerWeaponSounds.PlayShootingSounds();
-            GameObject firedProjectile = Instantiate(projectile.gameObject, firePoint.position, Quaternion.identity);
+            GameObject firedProjectile = ObjectPoolManager.SpawnObject(projectile.gameObject, firePoint.position, Quaternion.identity, ObjectPoolManager.PoolType.Projectile);
+            //GameObject firedProjectile = Instantiate(projectile.gameObject, firePoint.position, Quaternion.identity);
         }
         
         animator.SetTrigger(_gunShot);

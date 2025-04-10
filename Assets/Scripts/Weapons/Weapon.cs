@@ -38,6 +38,7 @@ public class Weapon : MonoBehaviour
     public void Fire()
     {
         weaponSounds.PlayShootingSounds();
-        GameObject firedProjectile = Instantiate(projectile.gameObject, transform.position, Quaternion.identity);
+        ObjectPoolManager.SpawnObject(projectile.gameObject, transform.position, Quaternion.identity, ObjectPoolManager.PoolType.Projectile);
+        //GameObject firedProjectile = Instantiate(projectile.gameObject, transform.position, Quaternion.identity);
     }
 }

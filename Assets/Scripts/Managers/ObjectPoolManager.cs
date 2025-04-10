@@ -1,0 +1,155 @@
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using UnityEditor;
+using UnityEngine;
+
+public class ObjectPoolManager : MonoBehaviour
+{
+    public static List<PooledObjectInfo> objectPools = new List<PooledObjectInfo>();
+
+    private GameObject _objectPoolEmptyHolder;
+
+    private static GameObject _particleSystemsEmpty;
+    private static GameObject _enemiesEmpty;
+    private static GameObject _projectilesEmpty;
+    private static GameObject _playersEmpty;
+    
+    public enum PoolType
+    {
+        ParticleSystem,
+        Enemy,
+        Projectile,
+        Player,
+        None
+    }
+    public static PoolType PoolingType;
+
+    private void Awake()
+    {
+        SetupEmpties();
+    }
+
+    private void SetupEmpties()
+    {
+        _objectPoolEmptyHolder = new GameObject("Pooled Objects");
+        
+        _playersEmpty = new GameObject("Players");
+        _playersEmpty.transform.SetParent(_objectPoolEmptyHolder.transform);
+        
+        _enemiesEmpty = new GameObject("Enemies");
+        _enemiesEmpty.transform.SetParent(_objectPoolEmptyHolder.transform);
+        
+        _projectilesEmpty = new GameObject("Projectiles");
+        _projectilesEmpty.transform.SetParent(_objectPoolEmptyHolder.transform);
+        
+        _particleSystemsEmpty = new GameObject("Particle Effects");
+        _particleSystemsEmpty.transform.SetParent(_objectPoolEmptyHolder.transform);
+    }
+
+    public static GameObject SpawnObject(GameObject objectToSpawn, Vector3 spawnPosition, Quaternion spawnRotation, PoolType poolType = PoolType.None)
+    {
+        PooledObjectInfo pool = objectPools.Find(p => p.LookupString == objectToSpawn.name);
+
+        if (pool == null)
+        {
+            pool = new PooledObjectInfo() { LookupString = objectToSpawn.name };
+            objectPools.Add(pool);
+        }
+        
+        GameObject spawnableObject = pool.InactiveObjects.FirstOrDefault();
+
+        if (spawnableObject == null)
+        {
+            GameObject parentObject = SetParentObject(poolType);
+            
+            spawnableObject = Instantiate(objectToSpawn, spawnPosition, spawnRotation);
+
+            if (parentObject != null)
+            {
+                spawnableObject.transform.SetParent(parentObject.transform);
+            }
+        }
+        else
+        {
+            spawnableObject.transform.position = spawnPosition;
+            spawnableObject.transform.rotation = spawnRotation;
+            pool.InactiveObjects.Remove(spawnableObject);
+            spawnableObject.SetActive(true);
+        }
+        
+        return spawnableObject;
+    }
+    
+    public static GameObject SpawnObject(GameObject objectToSpawn, Transform parentTransform)
+    {
+        PooledObjectInfo pool = objectPools.Find(p => p.LookupString == objectToSpawn.name);
+
+        if (pool == null)
+        {
+            pool = new PooledObjectInfo() { LookupString = objectToSpawn.name };
+            objectPools.Add(pool);
+        }
+        
+        GameObject spawnableObject = pool.InactiveObjects.FirstOrDefault();
+
+        if (spawnableObject == null)
+        {
+            spawnableObject = Instantiate(objectToSpawn, parentTransform);
+        }
+        else
+        {
+            pool.InactiveObjects.Remove(spawnableObject);
+            spawnableObject.SetActive(true);
+        }
+        
+        return spawnableObject;
+    }
+
+    public static void ReturnObjectToPool (GameObject objectToReturn)
+    {
+        string goName = objectToReturn.name.Substring(0, objectToReturn.name.Length - 7);
+        Debug.Log(goName);
+        
+        PooledObjectInfo pool = objectPools.Find(p => p.LookupString == goName);
+
+        if (pool == null)
+        {
+            Debug.LogWarning("Trying to release an object that is not pooled: " + objectToReturn.name);
+        }
+        else
+        {
+            objectToReturn.SetActive(false);
+            pool.InactiveObjects.Add(objectToReturn);
+        }
+    }
+
+    private static GameObject SetParentObject(PoolType poolType)
+    {
+        switch (poolType)
+        {
+            case PoolType.Player:
+                return _playersEmpty;
+            
+            case PoolType.Enemy:
+                return _enemiesEmpty;
+            
+            case PoolType.Projectile:
+                return _projectilesEmpty;
+            
+            case PoolType.ParticleSystem:
+                return _particleSystemsEmpty;
+            
+            case PoolType.None:
+                return null;
+            default:
+                return null;
+        }
+    }
+}
+
+public class PooledObjectInfo
+{
+    public string LookupString;
+    public List<GameObject> InactiveObjects = new List<GameObject>();
+}

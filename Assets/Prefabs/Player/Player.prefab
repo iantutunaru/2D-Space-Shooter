@@ -707,6 +707,13 @@ MonoBehaviour:
   playerAnimator: {fileID: 1599402592113046918}
   startingPosition: {fileID: 0}
   playerInput: {fileID: 7916193097609066685}
+  pauseMenu: {fileID: 0}
+  playerRigidbody: {fileID: 6355533943303462802}
+  playerCollider: {fileID: 8744730333254609691}
+  playerSprite: {fileID: 2317966075030468570}
+  engineSprite: {fileID: 713457792307960323}
+  enginePowerSprite: {fileID: 4888374020651289381}
+  weaponsSprite: {fileID: 4264839978609763667}
 --- !u!114 &6847883343128947730
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -18,10 +18,12 @@ public class PlayerCollisionDetection : MonoBehaviour
                 if (player.CanBeDestroyed())
                 {
                     playerSounds.PlayDeathSound();
-                    Destroy(this.gameObject);
+                    player.GameOver();
+                    //Destroy(this.gameObject);
                 }
                 
-                Destroy(projectile.gameObject);
+                ObjectPoolManager.ReturnObjectToPool(projectile.gameObject);
+                //Destroy(projectile.gameObject);
             }
             
         }
@@ -33,6 +35,7 @@ public class PlayerCollisionDetection : MonoBehaviour
             if (player.CanBeDestroyed())
             {
                 playerSounds.PlayDeathSound();
+                player.GameOver();
             }
         }
         
@@ -48,7 +51,8 @@ public class PlayerCollisionDetection : MonoBehaviour
                     player.TurnShieldOn();
                 }
                 
-                Destroy(pickup.gameObject);
+                ObjectPoolManager.ReturnObjectToPool(pickup.gameObject);
+                //Destroy(pickup.gameObject);
             }
         }
     }

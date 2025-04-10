@@ -24,7 +24,7 @@ public class ObstacleLine : MonoBehaviour
         
         for (int i = 0; i < _numberOfObstacles; i++)
         {
-            GameObject spawnedObstacle = Instantiate(obstaclePrefab, nextPosition, asteroidRotation);
+            GameObject spawnedObstacle = ObjectPoolManager.SpawnObject(obstaclePrefab, nextPosition, asteroidRotation, ObjectPoolManager.PoolType.Enemy);
             spawnedObstacle.GetComponent<Enemy>().Init(_scoreManager);
             
             nextPosition = nextPosition + Vector3.right * distanceBetweenObstacles;

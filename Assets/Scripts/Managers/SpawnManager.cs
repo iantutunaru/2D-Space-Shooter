@@ -76,7 +76,8 @@ public class SpawnManager : MonoBehaviour
     private void SpawnLineFormation()
     {
         Vector3 enemySpawnPoint = new Vector3(Random.Range(_minSinSpawnTransformX, _maxSinSpawnTransformX), minEnemySinSpawnPoint.position.y, minEnemySinSpawnPoint.position.z);
-        GameObject newWave = Instantiate(enemyLineFormation, enemySpawnPoint, Quaternion.identity);
+        GameObject newWave = ObjectPoolManager.SpawnObject(enemyLineFormation, enemySpawnPoint, Quaternion.identity, ObjectPoolManager.PoolType.Enemy);
+        //GameObject newWave = Instantiate(enemyLineFormation, enemySpawnPoint, Quaternion.identity);
         
         LineFormation newLineFormation = newWave.GetComponent<LineFormation>();
         newLineFormation.SetScoreManager(scoreManager);
@@ -86,7 +87,8 @@ public class SpawnManager : MonoBehaviour
     private void SpawnAsteroids()
     {
         Vector3 asteroidSpawnPoint = new Vector3(Random.Range(_minAsteroidTransformX, _maxAsteroidTransformX), minAsteroidSpawnPoint.position.y, minAsteroidSpawnPoint.position.z);
-        GameObject spawnedAsteroids = Instantiate(asteroids, asteroidSpawnPoint, Quaternion.identity);
+        GameObject spawnedAsteroids = ObjectPoolManager.SpawnObject(asteroids, asteroidSpawnPoint, Quaternion.identity, ObjectPoolManager.PoolType.Enemy);
+        //GameObject spawnedAsteroids = Instantiate(asteroids, asteroidSpawnPoint, Quaternion.identity);
 
         ObstacleLine obstacleLine = spawnedAsteroids.GetComponent<ObstacleLine>();
         obstacleLine.SetScoreManager(scoreManager);
@@ -98,7 +100,8 @@ public class SpawnManager : MonoBehaviour
         Vector3 largeAsteroidSpawnPoint = new Vector3(Random.Range(_minLargeAsteroidTransformX, _maxLargeAsteroidTransformX), minLargeAsteroidSpawnPoint.position.y, minLargeAsteroidSpawnPoint.position.z);
         Quaternion asteroidRotation = Quaternion.Euler(0, 0, Random.Range(0, 360));
         
-        GameObject spawnedLargeAsteroid = Instantiate(largeAsteroid, largeAsteroidSpawnPoint, asteroidRotation);
+        GameObject spawnedLargeAsteroid = ObjectPoolManager.SpawnObject(largeAsteroid, largeAsteroidSpawnPoint, asteroidRotation, ObjectPoolManager.PoolType.Enemy);
+        //GameObject spawnedLargeAsteroid = Instantiate(largeAsteroid, largeAsteroidSpawnPoint, asteroidRotation);
         spawnedLargeAsteroid.GetComponent<Enemy>().Init(scoreManager);
     }
 
@@ -111,6 +114,7 @@ public class SpawnManager : MonoBehaviour
     {
         Vector3 shieldSpawnPoint = new Vector3(Random.Range(_minShieldSpawnTransformX, _maxShieldSpawnTransformX), minShieldSpawnPoint.position.y, minShieldSpawnPoint.position.z);
         
-        GameObject newShieldPickup = Instantiate(shieldPickup, shieldSpawnPoint, Quaternion.identity);
+        GameObject newShieldPickup = ObjectPoolManager.SpawnObject(shieldPickup, shieldSpawnPoint, Quaternion.identity, ObjectPoolManager.PoolType.Enemy);
+        //GameObject newShieldPickup = Instantiate(shieldPickup, shieldSpawnPoint, Quaternion.identity);
     }
 }

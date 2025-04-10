@@ -44,8 +44,11 @@ public class EnemyCollisionDetection : MonoBehaviour
             {
                 _scoreManager.AddScore(scoreValue);
                 _enemySounds.PlayDeathSound();
-                Destroy(this.gameObject);
-                Destroy(projectile.gameObject);
+                ObjectPoolManager.ReturnObjectToPool(gameObject);
+                //Destroy(this.gameObject);
+                //projectile.DetachParticles();
+                ObjectPoolManager.ReturnObjectToPool(projectile.gameObject);
+                //Destroy(projectile.gameObject);
             }
         }
         
@@ -55,11 +58,12 @@ public class EnemyCollisionDetection : MonoBehaviour
         {
             _scoreManager.AddScore(scoreValue);
             _enemySounds.PlayDeathSound();
-            Destroy(this.gameObject);
+            ObjectPoolManager.ReturnObjectToPool(gameObject);
+            //Destroy(this.gameObject);
 
             if (player.CanBeDestroyed())
             {
-                Destroy(player.gameObject);
+                player.GameOver();
             }
         }
     }

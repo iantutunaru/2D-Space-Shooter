@@ -22,7 +22,7 @@ public class LineFormation : MonoBehaviour
         
         for (int i = 0; i < numberOfShips; i++)
         {
-            GameObject spawnedShip = Instantiate(shipPrefab, nextPosition, Quaternion.identity);
+            GameObject spawnedShip = ObjectPoolManager.SpawnObject(shipPrefab, nextPosition, Quaternion.identity, ObjectPoolManager.PoolType.Enemy);
             spawnedShip.GetComponent<Enemy>().Init(_scoreManager);
             
             nextPosition = nextPosition + Vector3.up * distanceBetweenShips;
