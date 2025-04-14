@@ -1,17 +1,28 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy : MonoBehaviour
+namespace Enemy
 {
-    [SerializeField] private EnemyCollisionDetection collisionDetection;
-    [SerializeField] private EnemyMovement movement;
-    [SerializeField] private EnemySounds enemySounds;
-    
-    public void Init(ScoreManager scoreManager)
+    public class Enemy : MonoBehaviour
     {
-        Debug.Log("Enemy initialized.");
-        collisionDetection.SetScoreManager(scoreManager);
-        collisionDetection.SetAudio(enemySounds);
+        [SerializeField] private int scoreGain;
+        [SerializeField] private int health = 1;
+        
+        [Header("Enemy References")]
+        [SerializeField] private EnemyHealth enemyHealth;
+
+        private void Awake()
+        {
+            enemyHealth.Init(health);
+        }
+
+        private void OnEnable()
+        {
+            enemyHealth.Init(health);
+        }
+
+        public int GetScoreForKill()
+        {
+            return scoreGain;
+        }
     }
 }

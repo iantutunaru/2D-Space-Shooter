@@ -1,29 +1,31 @@
-using System;
+using Managers;
+using Projectiles;
 using UnityEngine;
 
-public class PlayerWeapon : MonoBehaviour
+namespace Player
 {
-    [SerializeField] private Projectile projectile;
-    [SerializeField] private bool autoFire = false;
-    [SerializeField] private float fireRate = 0.5f;
-    [SerializeField] private float delay = 0.0f;
-    [SerializeField] private float fireRateTimer = 0f;
-    [SerializeField] private float delayTimer = 0f;
-    [SerializeField] private Transform[] firePoints;
-    [SerializeField] private Animator animator;
-    [SerializeField] private PlayerSounds playerWeaponSounds;
-
-    private String _gunShot = "WeaponShot";
-    
-    public void Fire()
+    public class PlayerWeapon : MonoBehaviour
     {
-        foreach (Transform firePoint in firePoints)
+        [SerializeField] private Projectile projectile;
+        
+        [Header("Weapon references")]
+        [SerializeField] private Transform[] weaponLocations;
+        [SerializeField] private Animator weaponAnimator;
+        [SerializeField] private PlayerSounds playerWeaponSounds;
+
+        private readonly string _gunShot = "WeaponShot";
+    
+        public void Fire()
         {
             playerWeaponSounds.PlayShootingSounds();
-            GameObject firedProjectile = ObjectPoolManager.SpawnObject(projectile.gameObject, firePoint.position, Quaternion.identity, ObjectPoolManager.PoolType.Projectile);
-            //GameObject firedProjectile = Instantiate(projectile.gameObject, firePoint.position, Quaternion.identity);
-        }
+            
+            foreach (var firePoint in weaponLocations)
+            {
+                ObjectPoolManager.SpawnObject(projectile.gameObject, firePoint.position, Quaternion.identity, 
+                                                                                ObjectPoolManager.PoolType.Projectile);
+            }
         
-        animator.SetTrigger(_gunShot);
+            weaponAnimator.SetTrigger(_gunShot);
+        }
     }
 }

@@ -1,16 +1,34 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class GameManager : MonoBehaviour
+namespace Managers
 {
-    [SerializeField] private ScoreManager scoreManager;
-    [SerializeField] private WaveManager waveManager;
-    [SerializeField] private SpawnManager spawnManager;
-    [SerializeField] private SoundFXManager soundFXManager;
+    public class GameManager : MonoBehaviour
+    {
+        private const int SpPlayerSpawn = 8;
     
-    public ScoreManager ScoreManager { get { return scoreManager; } }
-    public WaveManager WaveManager { get { return waveManager; } }
-    public SpawnManager SpawnManager { get { return spawnManager; } }
-    public SoundFXManager SoundFXManager { get { return soundFXManager; } }
+        private void Awake()
+        {
+            Actions.Actions.NewPlayerJoined += SetNewPlayerStartingPosition;
+        }
+
+        private void OnEnable()
+        {
+            Actions.Actions.NewPlayerJoined += SetNewPlayerStartingPosition;
+        }
+
+        private void OnDisable()
+        {
+            Actions.Actions.NewPlayerJoined -= SetNewPlayerStartingPosition;
+        }
+        
+        private void OnDestroy()
+        {
+            Actions.Actions.NewPlayerJoined -= SetNewPlayerStartingPosition;
+        }
+    
+        private void SetNewPlayerStartingPosition(Player.Player newPlayer)
+        {
+            newPlayer.Init(SpawnPoints.SpawnPoints.Instance.GetSpawnPoint(SpPlayerSpawn));
+        }
+    }
 }

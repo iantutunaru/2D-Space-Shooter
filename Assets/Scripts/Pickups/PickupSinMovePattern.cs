@@ -1,33 +1,34 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class PickupSinMovePattern : MonoBehaviour
+namespace Pickups
 {
-    [SerializeField] private float amplitude = 2;
-    [SerializeField] private float frequency = 0.5f;
-    [SerializeField] private bool inverted = false;
-
-    private float sinCenterX;
-
-    void Start()
+    public class PickupSinMovePattern : MonoBehaviour
     {
-        sinCenterX = transform.position.x;
-    }
-    
-    private void FixedUpdate()
-    {
-        Vector2 position = transform.position;
-        
-        float sinPattern = Mathf.Sin(position.y * frequency) * amplitude;
+        [SerializeField] private float amplitude = 2;
+        [SerializeField] private float frequency = 0.5f;
+        [SerializeField] private bool inverted = false;
 
-        if (inverted)
+        private float _sinCenterX;
+
+        private void Start()
         {
-            sinPattern *= -1;
+            _sinCenterX = transform.position.x;
         }
+    
+        private void FixedUpdate()
+        {
+            Vector2 position = transform.position;
         
-        position.x = sinCenterX + sinPattern;
+            var sinPattern = Mathf.Sin(position.y * frequency) * amplitude;
+
+            if (inverted)
+            {
+                sinPattern *= -1;
+            }
         
-        transform.position = position;
+            position.x = _sinCenterX + sinPattern;
+        
+            transform.position = position;
+        }
     }
 }

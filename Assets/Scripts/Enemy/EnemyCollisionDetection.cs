@@ -1,70 +1,74 @@
-using System.Collections;
-using System.Collections.Generic;
+using Managers;
+using Projectiles;
 using UnityEngine;
 
-public class EnemyCollisionDetection : MonoBehaviour
+namespace Enemy
 {
-    [SerializeField] bool canBeDestroyed = false;
-    [SerializeField] private float screenBoundsPosition = 13.2f;
-    [SerializeField] private int scoreValue;
+    public class EnemyCollisionDetection : MonoBehaviour
+    {
+        [SerializeField] private bool canBeDestroyed = false;
+        [SerializeField] private float screenBoundsPosition = 13.2f;
     
-    private ScoreManager _scoreManager;
-    private EnemySounds _enemySounds;
+        [Header("Enemy References")]
+        [SerializeField] private Enemy enemy;
+        [SerializeField] private EnemyHealth enemyHealth;
 
-    public void SetScoreManager(ScoreManager scoreManager)
-    {
-        _scoreManager = scoreManager;
-    }
-
-    public void SetAudio(EnemySounds enemySounds)
-    {
-        _enemySounds = enemySounds;
-    }
-    
-    void Update()
-    {
-        if (transform.position.y <= screenBoundsPosition)
+        private void Awake()
         {
-            canBeDestroyed = true;
-        }    
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (!canBeDestroyed)
-        {
-            return;
+            canBeDestroyed = false;
         }
         
-        Projectile projectile = collision.GetComponent<Projectile>();
-
-        if (projectile != null)
+        private void OnEnable()
         {
-            if (!projectile.isEnemy())
-            {
-                _scoreManager.AddScore(scoreValue);
-                _enemySounds.PlayDeathSound();
-                ObjectPoolManager.ReturnObjectToPool(gameObject);
-                //Destroy(this.gameObject);
-                //projectile.DetachParticles();
-                ObjectPoolManager.ReturnObjectToPool(projectile.gameObject);
-                //Destroy(projectile.gameObject);
-            }
+            canBeDestroyed = false;
         }
-        
-        Player player = collision.GetComponent<Player>();
 
-        if (player != null)
+        private void OnDisable()
         {
-            _scoreManager.AddScore(scoreValue);
-            _enemySounds.PlayDeathSound();
-            ObjectPoolManager.ReturnObjectToPool(gameObject);
-            //Destroy(this.gameObject);
-
-            if (player.CanBeDestroyed())
+            canBeDestroyed = false;
+        }
+    
+        private void Update()
+        {
+            if (transform.position.y <= screenBoundsPosition)
             {
-                player.GameOver();
-            }
+                canBeDestroyed = true;
+            }    
+        }
+
+        private void OnTriggerEnter2D(Collider2D collision)
+        {
+            if (!canBeDestroyed) return;
+        
+            if (CheckIfHitByPlayerProjectile(collision)) return;
+        
+            if (CheckIfHitByPlayer(collision)) return;
+        }
+
+        private bool CheckIfHitByPlayerProjectile(Collider2D collision)
+        {
+            var projectile = collision.GetComponent<Projectile>();
+
+            if (projectile == null) return false;
+
+            if (projectile.IsEnemy()) return false;
+        
+            enemyHealth.DealDamage();
+                
+            ObjectPoolManager.ReturnObjectToPool(projectile.gameObject);
+                
+            return true;
+        }
+
+        private bool CheckIfHitByPlayer(Collider2D collision)
+        {
+            var player = collision.GetComponent<Player.Player>();
+
+            if (player == null) return false;
+        
+            enemyHealth.DealDamage();
+        
+            return true;
         }
     }
 }

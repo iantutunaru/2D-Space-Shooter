@@ -1,33 +1,56 @@
-using System.Collections;
-using System.Collections.Generic;
+using UI;
 using UnityEngine;
 
-public class PauseManager : MonoBehaviour
+namespace Managers
 {
-    public static bool GamePaused = false;
-    [SerializeField] private GameObject pauseMenu;
-    [SerializeField] private GameObject settingsMenu;
-    [SerializeField] private Player player;
-
-    public bool IsGamePaused()
+    public class PauseManager : MonoBehaviour
     {
-        return GamePaused;
-    }
+        private bool _gamePaused;
+    
+        private void Start()
+        {
+            Actions.Actions.PauseGame += Pause;
+            Actions.Actions.ResumeGame += Unpause;
+        
+            _gamePaused = false;
+        }
 
-    public void Pause()
-    {
-        pauseMenu.SetActive(true);
-        Time.timeScale = 0f;
-        GamePaused = true;
-        player.GetPlayerInput().SwitchCurrentActionMap("UI");
-    }
+        private void OnEnable()
+        {
+            Actions.Actions.PauseGame += Pause;
+            Actions.Actions.ResumeGame += Unpause;
+        
+            _gamePaused = false;
+        }
 
-    public void Unpause()
-    {
-        pauseMenu.SetActive(false);
-        settingsMenu.SetActive(false);
-        Time.timeScale = 1f;
-        GamePaused = false;
-        player.GetPlayerInput().SwitchCurrentActionMap("Player");
+        private void OnDisable()
+        {
+            Actions.Actions.PauseGame -= Pause;
+            Actions.Actions.ResumeGame -= Unpause;
+        }
+
+        private void OnDestroy()
+        {
+            Actions.Actions.PauseGame -= Pause;
+            Actions.Actions.ResumeGame -= Unpause;
+        }
+    
+        private void Pause()
+        {
+            if (_gamePaused) return;
+        
+            PauseMenu.Instance.Pause();
+            Time.timeScale = 0f;
+            _gamePaused = true;
+        }
+
+        private void Unpause()
+        {
+            if (!_gamePaused) return;
+        
+            PauseMenu.Instance.Unpause();
+            Time.timeScale = 1f;
+            _gamePaused = false;
+        }
     }
 }

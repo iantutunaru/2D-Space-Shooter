@@ -1,44 +1,40 @@
-using System.Collections;
-using System.Collections.Generic;
+using Managers;
+using Projectiles;
 using UnityEngine;
 
-public class Weapon : MonoBehaviour
+namespace Weapons
 {
-    [SerializeField] private Projectile projectile;
-    [SerializeField] private bool autoFire = false;
-    [SerializeField] private float fireRate = 0.5f;
-    [SerializeField] private float delay = 0.0f;
-    [SerializeField] private float fireRateTimer = 0f;
-    [SerializeField] private float delayTimer = 0f;
-    [SerializeField] private WeaponSounds weaponSounds;
-    
-    void Update()
+    public class Weapon : MonoBehaviour
     {
-        if (autoFire)
+        [SerializeField] private bool autoFire = true;
+        [SerializeField] private float fireRate = 0.5f;
+    
+        [Header("Weapon assets")]
+        [SerializeField] private Projectile projectile;
+        [SerializeField] private WeaponSounds weaponSounds;
+    
+        private float _fireRateTimer = 0f;
+    
+        private void Update()
         {
-            if (delayTimer >= delay)
+            if (!autoFire) return;
+        
+            if (_fireRateTimer >= fireRate)
             {
-                if (fireRateTimer >= fireRate)
-                {
-                    Fire();
-                    fireRateTimer = 0f;
-                }
-                else
-                {
-                    fireRateTimer += Time.deltaTime;
-                }
+                Fire();
+                _fireRateTimer = 0f;
             }
             else
             {
-                delayTimer += Time.deltaTime;
+                _fireRateTimer += Time.deltaTime;
             }
         }
-    }
 
-    public void Fire()
-    {
-        weaponSounds.PlayShootingSounds();
-        ObjectPoolManager.SpawnObject(projectile.gameObject, transform.position, Quaternion.identity, ObjectPoolManager.PoolType.Projectile);
-        //GameObject firedProjectile = Instantiate(projectile.gameObject, transform.position, Quaternion.identity);
+        private void Fire()
+        {
+            weaponSounds.PlayShootingSounds();
+            ObjectPoolManager.SpawnObject(projectile.gameObject, transform.position, Quaternion.identity, 
+                                                                            ObjectPoolManager.PoolType.Projectile);
+        }
     }
 }

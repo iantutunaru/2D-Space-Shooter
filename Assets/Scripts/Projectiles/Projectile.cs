@@ -1,65 +1,68 @@
 using System.Collections;
-using System.Collections.Generic;
+using Managers;
 using UnityEngine;
 
-public class Projectile : MonoBehaviour
+namespace Projectiles
 {
-    [SerializeField] private Vector2 direction = Vector2.up;
-    [SerializeField] private float speed;
-    [SerializeField] private Vector2 velocity;
-    [SerializeField] private bool enemy = false; 
-    [SerializeField] private float timeUntilDestruction = 3;
-    [SerializeField] private ParticleSystem projectileTrail;
+    public class Projectile : MonoBehaviour
+    {
+        [SerializeField] private float timeUntilDestruction = 3;
     
-    private Coroutine _returnToPoolTimerCoroutine;
+        [Header("Projectile Assets")]
+        [SerializeField] private ParticleSystem projectileTrail;
     
-    // Start is called before the first frame update
-    void Awake()
-    {
-
-        //Destroy(gameObject, timeUntilDestruction);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        velocity = direction * speed;
-    }
-
-    private void OnEnable()
-    {
-        _returnToPoolTimerCoroutine = StartCoroutine(ReturnToPoolAfterTime());
-        if (projectileTrail != null)
+        [Header("Projectile Movement Variables")]
+        [SerializeField] private Vector2 direction = Vector2.up;
+        [SerializeField] private float speed;
+        [SerializeField] private Vector2 velocity;
+    
+        [Header("Projectile Type Variables")]
+        [SerializeField] private bool enemy = false; 
+    
+        private Coroutine _returnToPoolTimerCoroutine;
+    
+        private void Update()
         {
-            GameObject spawnedProjectileTrail = ObjectPoolManager.SpawnObject(projectileTrail.gameObject, transform.position, Quaternion.identity, ObjectPoolManager.PoolType.ParticleSystem);
-            spawnedProjectileTrail.GetComponent<ParticleSystem>().Play();
+            velocity = direction * speed;
         }
-    }
 
-    private IEnumerator ReturnToPoolAfterTime()
-    {
-        float elapsedTime = 0f;
-
-        while (elapsedTime <= timeUntilDestruction)
+        private void OnEnable()
         {
-            elapsedTime += Time.deltaTime;
-            yield return null;
+            _returnToPoolTimerCoroutine = StartCoroutine(ReturnToPoolAfterTime());
+            if (projectileTrail != null)
+            {
+                var spawnedProjectileTrail = ObjectPoolManager.SpawnObject(projectileTrail.gameObject, 
+                    transform.position, Quaternion.identity, ObjectPoolManager.PoolType.ParticleSystem);
+            
+                spawnedProjectileTrail.GetComponent<ParticleSystem>().Play();
+            }
         }
-        
-        ObjectPoolManager.ReturnObjectToPool(gameObject);
-    }
 
-    private void FixedUpdate()
-    {
-        Vector2 position = transform.position;
-        
-        position += velocity * Time.fixedDeltaTime;
-        
-        transform.position = position;
-    }
+        private IEnumerator ReturnToPoolAfterTime()
+        {
+            var elapsedTime = 0f;
 
-    public bool isEnemy()
-    {
-        return enemy;
+            while (elapsedTime <= timeUntilDestruction)
+            {
+                elapsedTime += Time.deltaTime;
+                yield return null;
+            }
+        
+            ObjectPoolManager.ReturnObjectToPool(gameObject);
+        }
+
+        private void FixedUpdate()
+        {
+            Vector2 position = transform.position;
+        
+            position += velocity * Time.fixedDeltaTime;
+        
+            transform.position = position;
+        }
+
+        public bool IsEnemy()
+        {
+            return enemy;
+        }
     }
 }

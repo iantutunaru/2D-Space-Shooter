@@ -1,120 +1,138 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using Object = System.Object;
 using Random = UnityEngine.Random;
 
-public class SpawnManager : MonoBehaviour
+namespace Managers
 {
-    [SerializeField] private GameManager gameManager;
-    [SerializeField] private ScoreManager scoreManager;
-    
-    [SerializeField] private GameObject enemyLineFormation;
-    [SerializeField] private Transform minEnemySinSpawnPoint;
-    [SerializeField] private Transform maxEnemySinSpawnPoint;
-    [SerializeField] private int minEnemies = 1;
-    [SerializeField] private int maxEnemies = 5;
-    
-    [SerializeField] private GameObject asteroids;
-    [SerializeField] private Transform minAsteroidSpawnPoint;
-    [SerializeField] private Transform maxAsteroidSpawnPoint;
-    
-    [SerializeField] private GameObject largeAsteroid;
-    [SerializeField] private Transform minLargeAsteroidSpawnPoint;
-    [SerializeField] private Transform maxLargeAsteroidSpawnPoint;
-    
-    [SerializeField] private int minAsteroids = 5;
-    [SerializeField] private int maxAsteroids = 15;
-
-    [SerializeField] private GameObject shieldPickup;
-    [SerializeField] private Transform minShieldSpawnPoint;
-    [SerializeField] private Transform maxShieldSpawnPoint;
-    
-    //private readonly int _enemyWave = 0;
-    //private readonly int _asteroidWave = 1;
-    
-    private float _minSinSpawnTransformX, _maxSinSpawnTransformX;
-    private float _minAsteroidTransformX, _maxAsteroidTransformX;
-    private float _minLargeAsteroidTransformX, _maxLargeAsteroidTransformX;
-    private float _minShieldSpawnTransformX, _maxShieldSpawnTransformX;
-    
-    public void Start()
+    public class SpawnManager : MonoBehaviour
     {
-        _minSinSpawnTransformX = minEnemySinSpawnPoint.position.x;
-        _maxSinSpawnTransformX = maxEnemySinSpawnPoint.position.x;
+        [Header("Managers")]
+        [SerializeField] private GameManager gameManager;
+        [SerializeField] private ScoreManager scoreManager;
+    
+        [Header("Line Formation Parameters")]
+        [SerializeField] private int minEnemies = 1;
+        [SerializeField] private int maxEnemies = 5;
         
-        _minAsteroidTransformX = minAsteroidSpawnPoint.position.x;
-        _maxAsteroidTransformX = maxAsteroidSpawnPoint.position.x;
+        [Header("Obstacle Line Formation Parameters")]
+        [SerializeField] private int minObstacleLineObstacles = 1;
+        [SerializeField] private int maxObstacleLineObstacles = 2;
         
-        _minLargeAsteroidTransformX = minLargeAsteroidSpawnPoint.position.x;
-        _maxLargeAsteroidTransformX = maxLargeAsteroidSpawnPoint.position.x;
+        [Header("Large Asteroid Parameters")]
+        [SerializeField] private GameObject largeObstacle;
+    
+        [Header("Shield Pickup Parameters")]
+        [SerializeField] private GameObject shieldPickup;
         
-        _minShieldSpawnTransformX = minShieldSpawnPoint.position.x;
-        _maxShieldSpawnTransformX = maxShieldSpawnPoint.position.x;
-    }
+        // "SP" stands for Spawn Point
+        private const int SpsSinMovementMin = 0;
+        private const int SpsSinMovementMax = 1;
+        private const int SpObstacleLineMin = 2;
+        private const int SpObstacleLineMax = 3;
+        private const int SpsLargeObstacleMin = 4;
+        private const int SpsLargeObstacleMax = 5;
+        private const int SpsPickupSpawnMin = 6;
+        private const int SpsPickupSpawnMax = 7;
+    
+        private float _minSinSpawnTransformX, _maxSinSpawnTransformX;
+        private float _minAsteroidTransformX, _maxAsteroidTransformX;
+        private float _minLargeAsteroidTransformX, _maxLargeAsteroidTransformX;
+        private float _minShieldSpawnTransformX, _maxShieldSpawnTransformX;
+        private float _transformY;
+        private float _transformZ;
 
-    public void SpawnWave(int waveType)
-    {
-        switch (waveType)
+        private const int OutOfBoundsWave = 0;
+        private const int LineFormationWave = 1;
+        private const int AsteroidWave = 2;
+        private const int LargeAsteroidWave = 3;
+    
+        public void Start()
         {
-            case 1:
-                SpawnLineFormation();
-                break;
-            case 2:
-                SpawnAsteroids();
-                break;
-            case 3:
-                SpawnLargeAsteroid();
-                break;
-            case 0:
-                Debug.Log ("ERROR: Wave Type out of range.");
-                break;
+            SetTransforms();
         }
-    }
 
-    private void SpawnLineFormation()
-    {
-        Vector3 enemySpawnPoint = new Vector3(Random.Range(_minSinSpawnTransformX, _maxSinSpawnTransformX), minEnemySinSpawnPoint.position.y, minEnemySinSpawnPoint.position.z);
-        GameObject newWave = ObjectPoolManager.SpawnObject(enemyLineFormation, enemySpawnPoint, Quaternion.identity, ObjectPoolManager.PoolType.Enemy);
-        //GameObject newWave = Instantiate(enemyLineFormation, enemySpawnPoint, Quaternion.identity);
+        private void SetTransforms()
+        {
+            _minSinSpawnTransformX = SpawnPoints.SpawnPoints.Instance.GetSpawnPoint(SpsSinMovementMin).position.x;
+            _maxSinSpawnTransformX = SpawnPoints.SpawnPoints.Instance.GetSpawnPoint(SpsSinMovementMax).position.x;
         
-        LineFormation newLineFormation = newWave.GetComponent<LineFormation>();
-        newLineFormation.SetScoreManager(scoreManager);
-        newLineFormation.PopulateLineFormation(Random.Range(minEnemies, maxEnemies));
-    }
-
-    private void SpawnAsteroids()
-    {
-        Vector3 asteroidSpawnPoint = new Vector3(Random.Range(_minAsteroidTransformX, _maxAsteroidTransformX), minAsteroidSpawnPoint.position.y, minAsteroidSpawnPoint.position.z);
-        GameObject spawnedAsteroids = ObjectPoolManager.SpawnObject(asteroids, asteroidSpawnPoint, Quaternion.identity, ObjectPoolManager.PoolType.Enemy);
-        //GameObject spawnedAsteroids = Instantiate(asteroids, asteroidSpawnPoint, Quaternion.identity);
-
-        ObstacleLine obstacleLine = spawnedAsteroids.GetComponent<ObstacleLine>();
-        obstacleLine.SetScoreManager(scoreManager);
-        obstacleLine.PopulateObstacleLine();
-    }
-
-    private void SpawnLargeAsteroid()
-    {
-        Vector3 largeAsteroidSpawnPoint = new Vector3(Random.Range(_minLargeAsteroidTransformX, _maxLargeAsteroidTransformX), minLargeAsteroidSpawnPoint.position.y, minLargeAsteroidSpawnPoint.position.z);
-        Quaternion asteroidRotation = Quaternion.Euler(0, 0, Random.Range(0, 360));
+            _minAsteroidTransformX = SpawnPoints.SpawnPoints.Instance.GetSpawnPoint(SpObstacleLineMin).position.x;
+            _maxAsteroidTransformX = SpawnPoints.SpawnPoints.Instance.GetSpawnPoint(SpObstacleLineMax).position.x;
         
-        GameObject spawnedLargeAsteroid = ObjectPoolManager.SpawnObject(largeAsteroid, largeAsteroidSpawnPoint, asteroidRotation, ObjectPoolManager.PoolType.Enemy);
-        //GameObject spawnedLargeAsteroid = Instantiate(largeAsteroid, largeAsteroidSpawnPoint, asteroidRotation);
-        spawnedLargeAsteroid.GetComponent<Enemy>().Init(scoreManager);
-    }
-
-    public void SpawnPickup()
-    {
-        SpawnShieldPickup();
-    }
-
-    private void SpawnShieldPickup()
-    {
-        Vector3 shieldSpawnPoint = new Vector3(Random.Range(_minShieldSpawnTransformX, _maxShieldSpawnTransformX), minShieldSpawnPoint.position.y, minShieldSpawnPoint.position.z);
+            _minLargeAsteroidTransformX = SpawnPoints.SpawnPoints.Instance.GetSpawnPoint(SpsLargeObstacleMin).position.x;
+            _maxLargeAsteroidTransformX = SpawnPoints.SpawnPoints.Instance.GetSpawnPoint(SpsLargeObstacleMax).position.x;
         
-        GameObject newShieldPickup = ObjectPoolManager.SpawnObject(shieldPickup, shieldSpawnPoint, Quaternion.identity, ObjectPoolManager.PoolType.Enemy);
-        //GameObject newShieldPickup = Instantiate(shieldPickup, shieldSpawnPoint, Quaternion.identity);
+            _minShieldSpawnTransformX = SpawnPoints.SpawnPoints.Instance.GetSpawnPoint(SpsPickupSpawnMin).position.x;
+            _maxShieldSpawnTransformX = SpawnPoints.SpawnPoints.Instance.GetSpawnPoint(SpsPickupSpawnMax).position.x;
+            
+            _transformY = SpawnPoints.SpawnPoints.Instance.GetSpawnPoint(SpsSinMovementMin).position.y;
+            _transformZ = SpawnPoints.SpawnPoints.Instance.GetSpawnPoint(SpsSinMovementMax).position.z;
+        }
+
+        public void SpawnWave()
+        {
+            var waveType = ChooseWaveType();
+        
+            switch (waveType)
+            {
+                case LineFormationWave:
+                    SpawnLineFormation();
+                    break;
+                case AsteroidWave:
+                    SpawnAsteroids();
+                    break;
+                case LargeAsteroidWave:
+                    SpawnLargeAsteroid();
+                    break;
+                case OutOfBoundsWave:
+                    Debug.LogWarning("ERROR: Wave Type out of range.");
+                    break;
+            }
+        }
+    
+        private static int ChooseWaveType()
+        {
+            return Random.Range(LineFormationWave, LargeAsteroidWave+1);
+        }
+
+        private void SpawnLineFormation()
+        {
+            var enemySpawnPoint = new Vector3(Random.Range(_minSinSpawnTransformX, _maxSinSpawnTransformX), 
+                _transformY, _transformZ);
+            
+            FormationManager.Instance.CreateFormation(Random.Range(minEnemies, maxEnemies), 
+                                                                                    enemySpawnPoint, false);
+        }
+
+        private void SpawnAsteroids()
+        {
+            var asteroidSpawnPoint = new Vector3(Random.Range(_minAsteroidTransformX, _maxAsteroidTransformX), 
+                _transformY, _transformZ);
+            
+            FormationManager.Instance.CreateFormation(Random.Range(minObstacleLineObstacles, maxObstacleLineObstacles), 
+                                                                                    asteroidSpawnPoint, true);
+        }
+
+        private void SpawnLargeAsteroid()
+        {
+            var largeAsteroidSpawnPoint = new Vector3(Random.Range(_minLargeAsteroidTransformX, 
+                _maxLargeAsteroidTransformX), _transformY, _transformZ);
+            var asteroidRotation = Quaternion.Euler(0, 0, Random.Range(0, 360));
+            var spawnedLargeAsteroid = ObjectPoolManager.SpawnObject(largeObstacle, largeAsteroidSpawnPoint, 
+                asteroidRotation, ObjectPoolManager.PoolType.Enemy);
+        }
+
+        public void SpawnPickup()
+        {
+            SpawnShieldPickup();
+        }
+
+        private void SpawnShieldPickup()
+        {
+            var shieldSpawnPoint = new Vector3(Random.Range(_minShieldSpawnTransformX, _maxShieldSpawnTransformX), 
+                _transformY, _transformZ);
+        
+            var newShieldPickup = ObjectPoolManager.SpawnObject(shieldPickup, shieldSpawnPoint, 
+                Quaternion.identity, ObjectPoolManager.PoolType.Enemy);
+        }
     }
 }

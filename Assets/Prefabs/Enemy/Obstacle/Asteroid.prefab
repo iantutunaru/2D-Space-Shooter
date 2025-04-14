@@ -24,6 +24,14 @@ PrefabInstance:
       propertyPath: m_Offset.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3856130706411750287, guid: 707486ccabd6c184facd4600a86c3dea, type: 3}
+      propertyPath: scoreGain
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 4299666251461128612, guid: 707486ccabd6c184facd4600a86c3dea, type: 3}
+      propertyPath: movementSpeed
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 4752416254937337983, guid: 707486ccabd6c184facd4600a86c3dea, type: 3}
       propertyPath: m_Sprite
       value: 

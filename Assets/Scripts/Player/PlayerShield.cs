@@ -1,47 +1,50 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerShield : MonoBehaviour
+namespace Player
 {
-    [SerializeField] private GameObject playerShield;
-    [SerializeField] private float shieldTimerLimit = 10;
-    [SerializeField] private Player player;
-    
-    private float _shieldTimer = 0;
-    private bool _isShieldActive = false;
-    
-    public void Update()
+    public class PlayerShield : MonoBehaviour
     {
-        ShieldTimeLimit();
-    }
+        [SerializeField] private Player player;
+        [SerializeField] private GameObject playerShield;
+        [Tooltip("How many seconds will the shield last.")]
+        [SerializeField] private float shieldDuration = 5f;
+        
+        private float _shieldTimer = 0;
+        private bool _isShieldActive = false;
+    
+        public void Update()
+        {
+            ShieldTimeLimit();
+        }
 
-    private void ShieldTimeLimit()
-    {
-        if (_shieldTimer >= shieldTimerLimit && _isShieldActive)
+        private void ShieldTimeLimit()
         {
-            ToggleShield();
+            if (_shieldTimer >= shieldDuration && _isShieldActive)
+            {
+                TurnShieldOff();
+            }
+            else
+            {
+                _shieldTimer += Time.deltaTime;
+            }
         }
-        else
-        {
-            _shieldTimer += Time.deltaTime;
-        }
-    }
-    
-    public void ToggleShield()
-    {
-        if (playerShield.activeSelf == false)
+        
+        public void TurnShieldOn()
         {
             playerShield.SetActive(true);
+            player.ToggleDamage();
+            
             _shieldTimer = 0;
             _isShieldActive = true;
         }
-        else
+
+        private void TurnShieldOff()
         {
+            player.ToggleDamage();
+            playerShield.SetActive(false);
+            
             _shieldTimer = 0;
             _isShieldActive = false;
-            player.TurnShieldOff();
-            playerShield.SetActive(false);
         }
     }
 }

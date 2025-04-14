@@ -1,17 +1,18 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class ObstacleRotation : MonoBehaviour
+namespace Obstacle
 {
-    [SerializeField] private float rotationSpeed = 10;
-
-    private void FixedUpdate()
+    public class ObstacleRotation : MonoBehaviour
     {
-        Quaternion rotation = transform.rotation;
+        [SerializeField] private float rotationSpeed = 10;
+
+        private void FixedUpdate()
+        {
+            Quaternion rotation = transform.rotation;
         
-        rotation.eulerAngles += new Vector3(0f, 0f, rotationSpeed * Time.deltaTime);
+            rotation.eulerAngles += new Vector3(0f, 0f, rotationSpeed * Time.deltaTime);
         
-        transform.rotation = rotation;
+            transform.rotation = rotation;
+        }
     }
 }

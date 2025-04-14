@@ -1,29 +1,25 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Android;
 using UnityEngine.InputSystem;
 
-public class PlayerUIActions : MonoBehaviour
+namespace Player
 {
-    
-    [SerializeField] private PauseManager pauseManager;
-    [SerializeField] private Player player;
-    
-    public void OnOpenMenu(InputValue value)
+    public class PlayerUIActions : MonoBehaviour
     {
-        if (!pauseManager.IsGamePaused())
-        {
-            pauseManager.Pause();
-        }
-    }
+        [SerializeField] private PlayerInput playerInput;
 
-    public void OnCloseMenu(InputValue value)
-    {
-        if (pauseManager.IsGamePaused())
+        private readonly string _actionMapUI = "UI";
+        private readonly string _actionMapNormalPlayerInput = "Player";
+        
+        public void OnOpenMenu(InputValue value)
         {
-            pauseManager.Unpause();
+            playerInput.SwitchCurrentActionMap(_actionMapUI);
+            Actions.Actions.PauseGame();
+        }
+
+        public void OnCloseMenu(InputValue value)
+        {
+            playerInput.SwitchCurrentActionMap(_actionMapNormalPlayerInput);
+            Actions.Actions.ResumeGame();
         }
     }
 }

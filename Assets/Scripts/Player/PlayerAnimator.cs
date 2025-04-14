@@ -1,15 +1,24 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerAnimator : MonoBehaviour
+namespace Player
 {
-    private static readonly int FMoveSpeed = Animator.StringToHash("f_moveSpeed");
-    
-    [SerializeField] private Animator animator;
-
-    public void setMoveSpeed(float speed)
+    public class PlayerAnimator : MonoBehaviour
     {
-        animator.SetFloat(FMoveSpeed, speed);
+        private static readonly int FMoveSpeed = Animator.StringToHash("f_moveSpeed");
+        private static readonly int FHealth = Animator.StringToHash("Health");
+    
+        [Header("Player References")]
+        [SerializeField] private Animator playerAnimator;
+        [SerializeField] private Animator playerEngineAnimator;
+
+        public void SetMoveSpeed(float speed)
+        {
+            playerEngineAnimator.SetFloat(FMoveSpeed, speed);
+        }
+
+        public void SetHealth(float health)
+        {
+            playerAnimator.SetFloat(FHealth, health);
+        }
     }
 }

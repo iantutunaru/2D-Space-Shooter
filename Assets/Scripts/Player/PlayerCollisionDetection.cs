@@ -1,59 +1,88 @@
-using System.Collections;
-using System.Collections.Generic;
+using Managers;
+using Pickups;
+using Projectiles;
 using UnityEngine;
 
-public class PlayerCollisionDetection : MonoBehaviour
+namespace Player
 {
-    [SerializeField] private Player player;
-    [SerializeField] private PlayerSounds playerSounds;
-    
-    private void OnTriggerEnter2D(Collider2D collision)
+    public class PlayerCollisionDetection : MonoBehaviour
     {
-        Projectile projectile = collision.GetComponent<Projectile>();
-
-        if (projectile != null)
+        [Header("Player References")]
+        [SerializeField] private Player player;
+        [SerializeField] private PlayerHealth playerHealth;
+        [SerializeField] private PlayerSounds playerSounds;
+        [SerializeField] private PlayerPickupManager playerPickupManager;
+    
+        private void OnTriggerEnter2D(Collider2D collision)
         {
-            if (projectile.isEnemy())
+            if (CheckIfHitByProjectile(collision))
             {
-                if (player.CanBeDestroyed())
-                {
-                    playerSounds.PlayDeathSound();
-                    player.GameOver();
-                    //Destroy(this.gameObject);
-                }
+                return;
+            }
+
+            if (CheckIfCollidedWithEnemy(collision))
+            {
+                return;
+            }
+
+            if (CheckIfPlayerCanPickUp(collision))
+            {
+                return;
+            }
+        }
+
+        private bool CheckIfHitByProjectile(Collider2D collision)
+        {
+            var projectile = collision.GetComponent<Projectile>();
+
+            if (projectile == null) return false;
+
+            if (!projectile.IsEnemy()) return false;
+            
+            if (player.CanBeDamaged())
+            {
+                playerHealth.DealDamage();
+            }
                 
-                ObjectPoolManager.ReturnObjectToPool(projectile.gameObject);
-                //Destroy(projectile.gameObject);
+            ObjectPoolManager.ReturnObjectToPool(projectile.gameObject);
+                
+            return true;
+
+        }
+
+        private bool CheckIfCollidedWithEnemy(Collider2D collision)
+        {
+            var enemy = collision.GetComponent<Enemy.Enemy>();
+
+            if (enemy == null) return false;
+            
+            if (player.CanBeDamaged())
+            {
+                playerHealth.DealDamage();
             }
             
+            return true;
+
         }
 
-        Enemy enemy = collision.GetComponent<Enemy>();
-
-        if (enemy != null)
+        private bool CheckIfPlayerCanPickUp(Collider2D collision)
         {
-            if (player.CanBeDestroyed())
+            var pickup = collision.GetComponent<Pickup>();
+
+            if (pickup == null) return false;
+
+            if (!pickup.IsShield) return true;
+            
+            if (player.CanBeDamaged())
             {
-                playerSounds.PlayDeathSound();
-                player.GameOver();
+                playerSounds.PlayShieldSound();
+                playerPickupManager.PickedShieldUp();
             }
-        }
-        
-        Pickup pickup = collision.GetComponent<Pickup>();
-
-        if (pickup != null)
-        {
-            if (pickup.IsShield)
-            {
-                if (player.CanBeDestroyed())
-                {
-                    playerSounds.PlayShieldSound();
-                    player.TurnShieldOn();
-                }
                 
-                ObjectPoolManager.ReturnObjectToPool(pickup.gameObject);
-                //Destroy(pickup.gameObject);
-            }
+            ObjectPoolManager.ReturnObjectToPool(pickup.gameObject);
+
+            return true;
+
         }
     }
 }

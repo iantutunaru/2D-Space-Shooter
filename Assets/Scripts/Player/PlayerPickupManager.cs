@@ -1,13 +1,15 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerPickupManager : MonoBehaviour
+namespace Player
 {
-    [SerializeField] private PlayerShield playerShield;
-
-    public void TurnShieldOn()
+    public class PlayerPickupManager : MonoBehaviour
     {
-        playerShield.ToggleShield();
+        [Header("Pickup Types")]
+        [SerializeField] private PlayerShield playerShield;
+
+        public void PickedShieldUp()
+        {
+            playerShield.TurnShieldOn();
+        }
     }
 }

@@ -53,7 +53,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: 9e188bfd58be6ff4c88c925411240777, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -118,8 +118,10 @@ GameObject:
   - component: {fileID: -5327929569510718525}
   - component: {fileID: 2318748022355649607}
   - component: {fileID: 3856130706411750287}
-  - component: {fileID: 4299666251461128612}
   - component: {fileID: -4157832866056269553}
+  - component: {fileID: -2530097526594269383}
+  - component: {fileID: -3233542191548107677}
+  - component: {fileID: 4299666251461128612}
   - component: {fileID: -2178476769455104187}
   m_Layer: 0
   m_Name: Enemy
@@ -229,23 +231,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5bbd8fe9411413740b6d98f452660e7e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  collisionDetection: {fileID: -4157832866056269553}
-  movement: {fileID: 4299666251461128612}
-  enemySounds: {fileID: -2178476769455104187}
---- !u!114 &4299666251461128612
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7416421309656685856}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0dbcd83eab3068b418dbe49f80076d8a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  movementSpeed: 5
-  outOfBoundsPosition: -16
+  scoreGain: 100
+  health: 1
+  enemyHealth: {fileID: -2530097526594269383}
 --- !u!114 &-4157832866056269553
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -260,7 +248,49 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   canBeDestroyed: 0
   screenBoundsPosition: 13.2
-  scoreValue: 0
+  enemy: {fileID: 3856130706411750287}
+  enemyHealth: {fileID: -2530097526594269383}
+--- !u!114 &-2530097526594269383
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7416421309656685856}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18a840f622775846bf9c6feb8254795, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemy: {fileID: 3856130706411750287}
+  enemySounds: {fileID: -2178476769455104187}
+  deathParticles: {fileID: 9095792083887419426, guid: 723ca5259e0206a4cab9ed07a8b51ad9, type: 3}
+--- !u!114 &-3233542191548107677
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7416421309656685856}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5188b723389bda04a9b72283f2268074, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &4299666251461128612
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7416421309656685856}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0dbcd83eab3068b418dbe49f80076d8a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  movementSpeed: 5
+  outOfBoundsPosition: -16
 --- !u!114 &-2178476769455104187
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -273,10 +303,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75bc6ef43eba747499d50f20d26e71cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damageSound:
+  - {fileID: 8300000, guid: cd8b2fde281808243b1834a319d606a4, type: 3}
+  - {fileID: 8300000, guid: 1fe4becff4b0d7c49a590a19b398f598, type: 3}
+  - {fileID: 8300000, guid: dfe2d1de75110b14fa52067d08260b8c, type: 3}
   deathSounds:
   - {fileID: 8300000, guid: cd8b2fde281808243b1834a319d606a4, type: 3}
-  - {fileID: 8300000, guid: dfe2d1de75110b14fa52067d08260b8c, type: 3}
   - {fileID: 8300000, guid: 1fe4becff4b0d7c49a590a19b398f598, type: 3}
+  - {fileID: 8300000, guid: dfe2d1de75110b14fa52067d08260b8c, type: 3}
 --- !u!1 &7572601791406074540
 GameObject:
   m_ObjectHideFlags: 0
@@ -329,7 +363,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: 9e188bfd58be6ff4c88c925411240777, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

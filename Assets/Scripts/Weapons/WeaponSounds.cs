@@ -1,13 +1,15 @@
-using System.Collections;
-using System.Collections.Generic;
+using Managers;
 using UnityEngine;
 
-public class WeaponSounds : MonoBehaviour
+namespace Weapons
 {
-    [SerializeField] private AudioClip[] shootingSounds;
-
-    public void PlayShootingSounds()
+    public class WeaponSounds : MonoBehaviour
     {
-        SoundFXManager.Instance.PlaySoundFXClip(shootingSounds, transform, 0.25f);
+        [SerializeField] private AudioClip[] shootingSounds;
+
+        public void PlayShootingSounds()
+        {
+            SoundFXManager.Instance.PlaySoundFXClip(shootingSounds, transform, 0.25f);
+        }
     }
 }

@@ -1,11 +1,13 @@
-using System.Collections;
-using System.Collections.Generic;
+using Managers;
 using UnityEngine;
 
-public class ReturnParticlesToPool : MonoBehaviour
+namespace Particles
 {
-    private void OnParticleSystemStopped()
+    public class ReturnParticlesToPool : MonoBehaviour
     {
-        ObjectPoolManager.ReturnObjectToPool(gameObject);
+        private void OnParticleSystemStopped()
+        {
+            ObjectPoolManager.ReturnObjectToPool(gameObject);
+        }
     }
 }

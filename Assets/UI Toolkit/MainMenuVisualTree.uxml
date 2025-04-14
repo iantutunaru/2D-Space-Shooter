@@ -1,0 +1,9 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI%20Toolkit/MainMenuStyle.uss?fileID=7433441132597879392&amp;guid=8d151af2e5d65604ab8f52e96c03141b&amp;type=3#MainMenuStyle" />
+    <ui:VisualElement name="Container" style="flex-grow: 1; background-image: url(&apos;project://database/Assets/Imported/Background/blue-with-stars.png?fileID=2800000&amp;guid=3a4f85c40e74d8343b5d25f25c51a93a&amp;type=3#blue-with-stars&apos;); cursor: url(&apos;project://database/Assets/Imported/UI/Cursor/Arrow1.png?fileID=2800000&amp;guid=d5697bcad57e4cf4b949a60c38e497e5&amp;type=3#Arrow1&apos;);">
+        <ui:Label tabindex="-1" text="Starship &#10;&amp; &#10;Asteroids" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Title" class="header" />
+        <ui:Button text="Start Game" parse-escape-sequences="true" display-tooltip-when-elided="true" name="StartButton" class="button" />
+        <ui:Button text="Settings" parse-escape-sequences="true" display-tooltip-when-elided="true" name="SettingsButton" class="button" />
+        <ui:Button text="Quit Game" parse-escape-sequences="true" display-tooltip-when-elided="true" name="ExitButton" class="button" />
+    </ui:VisualElement>
+</ui:UXML>

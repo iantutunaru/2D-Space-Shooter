@@ -1,13 +1,21 @@
-using System.Collections;
-using System.Collections.Generic;
+using Managers;
 using UnityEngine;
 
-public class EnemySounds : MonoBehaviour
+namespace Enemy
 {
-    [SerializeField] private AudioClip[] deathSounds;
-
-    public void PlayDeathSound()
+    public class EnemySounds : MonoBehaviour
     {
-        SoundFXManager.Instance.PlaySoundFXClip(deathSounds, transform, 1f);
+        [SerializeField] private AudioClip[] damageSound;
+        [SerializeField] private AudioClip[] deathSounds;
+
+        public void PlayDeathSound()
+        {
+            SoundFXManager.Instance.PlaySoundFXClip(deathSounds, transform, 1f);
+        }
+
+        public void PlayDamageSound()
+        {
+            SoundFXManager.Instance.PlaySoundFXClip(damageSound, transform, 1f);
+        }
     }
 }

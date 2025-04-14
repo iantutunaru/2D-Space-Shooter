@@ -1,0 +1,82 @@
+.header {
+    -unity-font: url('project://database/Assets/Imported/Fonts/joystix%20monospace.otf?fileID=12800000&guid=8087035aa2bf07846877a4bc4378e664&type=3#joystix monospace');
+    font-size: 100px;
+    -unity-text-align: middle-center;
+    -unity-font-definition: initial;
+    color: rgb(255, 255, 255);
+    margin-top: 50px;
+    -unity-background-scale-mode: stretch-to-fill;
+    -unity-font-style: bold;
+    cursor: url('project://database/Assets/Imported/UI/Cursor/Arrow1.png?fileID=2800000&guid=d5697bcad57e4cf4b949a60c38e497e5&type=3#Arrow1');
+}
+
+.subheader {
+    -unity-font: url('project://database/Assets/Imported/Fonts/joystix%20monospace.otf?fileID=12800000&guid=8087035aa2bf07846877a4bc4378e664&type=3#joystix monospace');
+    font-size: 50px;
+    -unity-text-align: middle-center;
+    -unity-font-definition: initial;
+    color: rgb(255, 255, 255);
+    margin-top: 25px;
+    -unity-background-scale-mode: stretch-to-fill;
+    -unity-font-style: bold;
+    cursor: url('project://database/Assets/Imported/UI/Cursor/Arrow1.png?fileID=2800000&guid=d5697bcad57e4cf4b949a60c38e497e5&type=3#Arrow1');
+}
+
+.button {
+    width: 20%;
+    height: 10%;
+    -unity-text-align: middle-center;
+    -unity-font: url('project://database/Assets/Imported/Fonts/joystix%20monospace.otf?fileID=12800000&guid=8087035aa2bf07846877a4bc4378e664&type=3#joystix monospace');
+    -unity-font-definition: initial;
+    justify-content: center;
+    align-self: center;
+    align-items: stretch;
+    background-image: url('project://database/Assets/Imported/UI/Button/UI_Flat_Button01a_1.png?fileID=2800000&guid=432ce38abdef2b04cae1f0319145ff14&type=3#UI_Flat_Button01a_1');
+    margin-top: 50px;
+    font-size: 25px;
+    position: relative;
+    top: 0;
+    bottom: auto;
+    transition-property: all;
+    transition-duration: 0.25s;
+    transition-timing-function: ease;
+    transition-delay: 0s;
+    -unity-font-style: bold;
+    cursor: url('project://database/Assets/Imported/UI/Cursor/Hand2.png?fileID=2800000&guid=1e135a8bfc80c3344a09722312ae8282&type=3#Hand2');
+}
+
+.button:hover {
+    width: 20%;
+    height: 10%;
+    -unity-text-align: middle-center;
+    -unity-font: url('project://database/Assets/Imported/Fonts/joystix%20monospace.otf?fileID=12800000&guid=8087035aa2bf07846877a4bc4378e664&type=3#joystix monospace');
+    -unity-font-definition: initial;
+    justify-content: center;
+    align-self: center;
+    align-items: stretch;
+    background-image: url('project://database/Assets/Imported/UI/Button/UI_Flat_Button01a_1.png?fileID=2800000&guid=432ce38abdef2b04cae1f0319145ff14&type=3#UI_Flat_Button01a_1');
+    margin-top: 50px;
+    font-size: 35px;
+    position: relative;
+    top: 0;
+    bottom: auto;
+    scale: 1.2 1.2;
+    -unity-font-style: bold;
+    cursor: url('project://database/Assets/Imported/UI/Cursor/Hand2.png?fileID=2800000&guid=1e135a8bfc80c3344a09722312ae8282&type=3#Hand2');
+}
+
+.slider {
+    -unity-font: url('project://database/Assets/Imported/Fonts/joystix%20monospace.otf?fileID=12800000&guid=8087035aa2bf07846877a4bc4378e664&type=3#joystix monospace');
+    -unity-font-definition: initial;
+    color: rgb(255, 255, 255);
+    font-size: 30px;
+    justify-content: center;
+    align-self: center;
+    width: 40%;
+    margin-top: 20px;
+    -unity-slice-left: 0;
+    -unity-slice-top: 0;
+    -unity-slice-right: 0;
+    -unity-slice-bottom: 0;
+    cursor: url('project://database/Assets/Imported/UI/Cursor/Hand2.png?fileID=2800000&guid=1e135a8bfc80c3344a09722312ae8282&type=3#Hand2');
+}

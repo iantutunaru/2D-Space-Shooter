@@ -1,23 +1,27 @@
-using System.Collections;
-using System.Collections.Generic;
+using Managers;
 using UnityEngine;
 
-public class PickupMovement : MonoBehaviour
+namespace Pickups
 {
-    [SerializeField] private float movementSpeed = 5f;
-    [SerializeField] private float outOfBoundsPosition = -16f;
-
-    private void FixedUpdate()
+    public class PickupMovement : MonoBehaviour
     {
-        Vector2 position = transform.position;
-        
-        position.y -= movementSpeed * Time.fixedDeltaTime;
+        [SerializeField] private float movementSpeed = 5f;
+        [SerializeField] private float outOfBoundsPosition = -16f;
 
-        if (position.y <= outOfBoundsPosition)
+        private bool OutOfBounds => transform.position.y <= outOfBoundsPosition;
+
+        private void FixedUpdate()
         {
-            Destroy(this.gameObject);
-        }
+            Vector2 position = transform.position;
         
-        transform.position = position;
+            position.y -= movementSpeed * Time.fixedDeltaTime;
+
+            if (OutOfBounds)
+            {
+                ObjectPoolManager.ReturnObjectToPool(this.gameObject);
+            }
+        
+            transform.position = position;
+        }
     }
 }

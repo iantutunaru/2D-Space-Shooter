@@ -1,31 +1,25 @@
-using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerShooting : MonoBehaviour
+namespace Player
 {
-    public Action<bool> Fire;
-    
-    private bool _gunFired;
-    private PlayerWeapon[] _weapons;
-
-    private void Start()
+    public class PlayerShooting : MonoBehaviour
     {
-        _weapons = transform.GetComponentsInChildren<PlayerWeapon>();
-    }
-    
-    public void OnShoot(InputValue value)
-    {
-        _gunFired = value.isPressed;
-    }
-
-    private void Update()
-    {
-        if (_gunFired)
+        private PlayerWeapon[] _weapons;
+        
+        private void Awake()
         {
-            _gunFired = false;
-            
-            foreach (PlayerWeapon weapon in _weapons)
+            _weapons = transform.GetComponentsInChildren<PlayerWeapon>();
+        }
+        
+        public void OnShoot(InputValue value)
+        {
+            ShootWeapon();
+        }
+
+        private void ShootWeapon()
+        {
+            foreach (var weapon in _weapons)
             {
                 weapon.Fire();
             }

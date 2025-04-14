@@ -1,18 +1,49 @@
-using System.Collections;
-using System.Collections.Generic;
-using TMPro;
+using UI;
 using UnityEngine;
-using UnityEngine.UI;
 
-public class ScoreManager : MonoBehaviour
+namespace Managers
 {
-    [SerializeField] int score = 0;
-    [SerializeField] TextMeshProUGUI scoreText;
-
-    public void AddScore(int scoreToAdd)
+    public class ScoreManager : MonoBehaviour
     {
-        score += scoreToAdd;
-        scoreText.text = score.ToString();
+        private int _score = 0;
+        
+        public static ScoreManager Instance;
+        
+        private void Awake()
+        {
+            if (Instance == null)
+            {
+                Instance = this;
+            }
+            
+            Actions.Actions.OnEnemyDestroyed += AddScore;
+        }
+
+        public int GetScore()
+        {
+            return _score;
+        }
+        
+        private void OnEnable()
+        {
+            Actions.Actions.OnEnemyDestroyed += AddScore;
+        }
+
+        private void OnDisable()
+        {
+            Actions.Actions.OnEnemyDestroyed -= AddScore;
+        }
+
+        private void OnDestroy()
+        {
+            Actions.Actions.OnEnemyDestroyed -= AddScore;
+        }
+
+        private void AddScore(Enemy.Enemy enemy)
+        {
+            _score += enemy.GetScoreForKill();
+            GameUI.Instance.SetScoreText(_score);
+        }
     }
 }
 

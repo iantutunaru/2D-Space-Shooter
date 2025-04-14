@@ -1,33 +1,29 @@
-using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerMovement : MonoBehaviour
+namespace Player
 {
-    public Action<Vector2> MovementInputChanged;
-    public Action<float> MovementSpeedChanged;
-    
-    [SerializeField] private Rigidbody2D rigidBody;
-    [SerializeField] private float movementSpeed = 1f;
-    
-    private Vector2 _movementInput;
-    private float _minXMovement = -6.87f;
-    private float _maxXMovement = 6.87f;
-    private float _minYMovement = -13.2f;
-    private float _maxYMovement = 13.2f;
-    
-    public void OnMove(InputValue value)
+    public class PlayerMovement : MonoBehaviour
     {
-        _movementInput = value.Get<Vector2>();
+        [SerializeField] private float movementSpeed = 1f;
         
-        MovementInputChanged?.Invoke(_movementInput);
-    }
+        [Header("Player References")]
+        [SerializeField] private Rigidbody2D playerRigidbody2D;
+        [SerializeField] private PlayerAnimator playerAnimator;
+    
+        private Vector2 _movementInput;
+        
+        public void OnMove(InputValue value)
+        {
+            _movementInput = value.Get<Vector2>();
+        }
 
-    private void FixedUpdate()
-    {
-        rigidBody.velocity = _movementInput * movementSpeed;
-        
-        MovementSpeedChanged?.Invoke(rigidBody.velocity.magnitude);
+        private void FixedUpdate()
+        {
+            playerRigidbody2D.velocity = _movementInput * movementSpeed;
+            
+            playerAnimator.SetMoveSpeed(playerRigidbody2D.velocity.magnitude);
+        }
     }
 }
                   

@@ -1,82 +1,68 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class Player : MonoBehaviour
+namespace Player
 {
-    [SerializeField] private PlayerMovement playerMovement;
-    [SerializeField] private PlayerShooting playerShooting;
-    [SerializeField] private PlayerCollisionDetection playerCollisionDetection;
-    [SerializeField] private PlayerPickupManager playerPickupManager;
-    [SerializeField] private PlayerAnimator playerAnimator;
-    [SerializeField] private Transform startingPosition;
-    [SerializeField] private PlayerInput playerInput;
-    [SerializeField] private PauseMenu pauseMenu;
-    [SerializeField] private Rigidbody2D playerRigidbody;
-    [SerializeField] private BoxCollider2D playerCollider;
-    [SerializeField] private SpriteRenderer playerSprite;
-    [SerializeField] private SpriteRenderer engineSprite;
-    [SerializeField] private SpriteRenderer enginePowerSprite;
-    [SerializeField] private SpriteRenderer weaponsSprite;
+    public class Player : MonoBehaviour
+    {
+        [Header("Player References")]
+        [SerializeField] private PlayerHealth playerHealth;
+        [SerializeField] private PlayerInput playerInput;
     
-    private bool _canBeDestroyed = true;
+        [Header("Player Variables")]
+        [Tooltip("Player's maximum health. Minimum is 1.")]
+        [SerializeField] private float maxHealth = 4f;
+        [SerializeField] private Rigidbody2D playerRigidbody;
+        [SerializeField] private BoxCollider2D playerCollider;
     
-    public void Start()
-    {
-        StartGame();
-    }
-
-    public PlayerInput GetPlayerInput()
-    {
-        return playerInput;
-    }
+        [Header("Player Sprites")]
+        [SerializeField] private SpriteRenderer playerSprite;
+        [SerializeField] private SpriteRenderer engineSprite;
+        [SerializeField] private SpriteRenderer enginePowerSprite;
+        [SerializeField] private SpriteRenderer weaponsSprite;
     
-    private void OnEnable()
-    {
-        playerMovement.MovementSpeedChanged += OnMovementSpeedChanged;
-    }
+        private bool _canBeDamaged = true;
+        private Transform _startingPosition;
 
-    private void OnDisable()
-    {
-        playerMovement.MovementSpeedChanged -= OnMovementSpeedChanged;
-    }
-
-    private void StartGame()
-    {
-        playerInput.SwitchCurrentActionMap("Player");
-        transform.position = startingPosition.position;
-    }
-
-    public void GameOver()
-    { 
-        playerRigidbody.velocity = Vector3.zero;
-        playerCollider.enabled = false;
-        playerSprite.enabled = false;
-        engineSprite.enabled = false;
-        enginePowerSprite.enabled = false; 
-        weaponsSprite.enabled = false;
+        public void Init(Transform startingPosition)
+        {
+            _startingPosition = startingPosition;
+        }
     
-        playerInput.SwitchCurrentActionMap("UI");
-        pauseMenu.GameOver();
-    }
+        public void Start()
+        {
+            Actions.Actions.NewPlayerJoined(this);
+            
+            StartGame();
+        }
+        
+        public void ToggleDamage()
+        {
+            _canBeDamaged = !_canBeDamaged;
+        }
+    
+        public bool CanBeDamaged() => _canBeDamaged;
 
-    private void OnMovementSpeedChanged(float movementSpeed)
-    {
-        playerAnimator.setMoveSpeed(movementSpeed);
-    }
+        private void StartGame()
+        {
+            playerInput.SwitchCurrentActionMap("Player");
+            
+            transform.position = _startingPosition.position;
+            
+            playerHealth.Init(maxHealth);
+        }
 
-    public void TurnShieldOn()
-    {
-        playerPickupManager.TurnShieldOn();
-        _canBeDestroyed = false;
+        public void GameOver()
+        { 
+            playerRigidbody.velocity = Vector3.zero;
+            playerCollider.enabled = false;
+            playerSprite.enabled = false;
+            engineSprite.enabled = false;
+            enginePowerSprite.enabled = false; 
+            weaponsSprite.enabled = false;
+    
+            playerInput.SwitchCurrentActionMap("UI");
+            Actions.Actions.GameOver();
+        }
     }
-
-    public void TurnShieldOff()
-    {
-        _canBeDestroyed = true;
-    }
-
-    public bool CanBeDestroyed() => _canBeDestroyed;
 }

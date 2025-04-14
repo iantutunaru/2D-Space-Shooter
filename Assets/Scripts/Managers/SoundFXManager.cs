@@ -1,50 +1,57 @@
-using System.Collections;
-using System.Collections.Generic;
+using Audio;
 using UnityEngine;
 
-public class SoundFXManager : MonoBehaviour
+namespace Managers
 {
-    public static SoundFXManager Instance;
-    
-    [SerializeField] private AudioSource soundFXObject;
-
-    private void Awake()
+    public class SoundFXManager : MonoBehaviour
     {
-        if (Instance == null)
+        public static SoundFXManager Instance;
+    
+        [SerializeField] private AudioSource soundFXObject;
+
+        private float _audioTimer;
+
+        private void Awake()
         {
-            Instance = this;
+            if (Instance == null)
+            {
+                Instance = this;
+            }
         }
-    }
 
-    public void PlaySoundFXClip(AudioClip audioClip, Transform spawnTransform, float volume)
-    {
-        AudioSource audioSource = Instantiate(soundFXObject, spawnTransform.position, Quaternion.identity);
+        public void PlaySoundFXClip(AudioClip audioClip, Transform spawnTransform, float volume)
+        {
+            GameObject audioSourceGameObject = ObjectPoolManager.SpawnObject(soundFXObject.gameObject, 
+                spawnTransform.position, Quaternion.identity, ObjectPoolManager.PoolType.AudioSource);
         
-        audioSource.clip = audioClip;
+            AudioSource audioSource = audioSourceGameObject.GetComponent<AudioSource>();
         
-        audioSource.volume = volume;
+            audioSource.clip = audioClip;
         
-        audioSource.Play();
+            audioSource.volume = volume;
         
-        float clipLength = audioSource.clip.length;
+            audioSource.Play();
         
-        Destroy(audioSource.gameObject, clipLength);
-    }
+            audioSourceGameObject.GetComponent<ReturnAudioToPool>().StartTimer(audioSource.clip.length);
+        }
     
-    public void PlaySoundFXClip(AudioClip[] audioClips, Transform spawnTransform, float volume)
-    {
-        int randomClip = Random.Range(0, audioClips.Length);
+        public void PlaySoundFXClip(AudioClip[] audioClips, Transform spawnTransform, float volume)
+        {
+            int randomClip = Random.Range(0, audioClips.Length);
         
-        AudioSource audioSource = Instantiate(soundFXObject, spawnTransform.position, Quaternion.identity);
+            GameObject audioSourceGameObject = ObjectPoolManager.SpawnObject(soundFXObject.gameObject, 
+                spawnTransform.position, Quaternion.identity, ObjectPoolManager.PoolType.AudioSource);
         
-        audioSource.clip = audioClips[randomClip];
+            AudioSource audioSource = audioSourceGameObject.GetComponent<AudioSource>();
         
-        audioSource.volume = volume;
+            audioSource.clip = audioClips[randomClip];
         
-        audioSource.Play();
+            audioSource.volume = volume;
         
-        float clipLength = audioSource.clip.length;
+            audioSource.Play();
         
-        Destroy(audioSource.gameObject, clipLength);
+            audioSourceGameObject.GetComponent<ReturnAudioToPool>().StartTimer(audioSource.clip.length);
+        
+        }
     }
 }
