@@ -6,12 +6,6 @@ namespace UI
     public class HealthBar : MonoBehaviour
     {
         public Slider healthSlider;
-    
-        private void Start()
-        {
-            Actions.Actions.HealthChanged += SetHealth;
-            Actions.Actions.MaxHealthChanged += SetMaxHealth;
-        }
 
         private void OnEnable()
         {
@@ -20,12 +14,6 @@ namespace UI
         }
 
         private void OnDisable()
-        {
-            Actions.Actions.HealthChanged -= SetHealth;
-            Actions.Actions.MaxHealthChanged -= SetMaxHealth;
-        }
-
-        private void OnDestroy()
         {
             Actions.Actions.HealthChanged -= SetHealth;
             Actions.Actions.MaxHealthChanged -= SetMaxHealth;

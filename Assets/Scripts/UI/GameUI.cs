@@ -1,3 +1,5 @@
+using System;
+using Managers;
 using TMPro;
 using UnityEngine;
 
@@ -8,6 +10,7 @@ namespace UI
         public static GameUI Instance;
     
         [SerializeField] private TextMeshProUGUI scoreText;
+        [SerializeField] private ScoreManager scoreManager;
     
         private Canvas _scoreCanvas;
     
@@ -17,6 +20,21 @@ namespace UI
         
             Instance = this;
             _scoreCanvas = this.gameObject.GetComponent<Canvas>();
+        }
+
+        private void OnEnable()
+        {
+            scoreManager.ScoreChanged += OnScoreChanged;
+        }
+
+        private void OnDisable()
+        {
+            scoreManager.ScoreChanged -= OnScoreChanged;
+        }
+
+        private void OnScoreChanged(int score)
+        {
+            SetScoreText(score);
         }
 
         public void SetCanvasCamera(Camera newCanvasCamera)

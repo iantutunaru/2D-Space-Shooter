@@ -20,8 +20,6 @@ namespace UI
             {
                 Instance = this;
             }
-        
-            Actions.Actions.GameOver += GameOver;
         }
     
         private void OnEnable()
@@ -30,11 +28,6 @@ namespace UI
         }
 
         private void OnDisable()
-        {
-            Actions.Actions.GameOver -= GameOver;
-        }
-
-        private void OnDestroy()
         {
             Actions.Actions.GameOver -= GameOver;
         }

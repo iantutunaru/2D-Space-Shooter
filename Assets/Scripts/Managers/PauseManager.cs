@@ -9,9 +9,6 @@ namespace Managers
     
         private void Start()
         {
-            Actions.Actions.PauseGame += Pause;
-            Actions.Actions.ResumeGame += Unpause;
-        
             _gamePaused = false;
         }
 
@@ -24,12 +21,6 @@ namespace Managers
         }
 
         private void OnDisable()
-        {
-            Actions.Actions.PauseGame -= Pause;
-            Actions.Actions.ResumeGame -= Unpause;
-        }
-
-        private void OnDestroy()
         {
             Actions.Actions.PauseGame -= Pause;
             Actions.Actions.ResumeGame -= Unpause;

@@ -1,3 +1,4 @@
+using System;
 using UI;
 using UnityEngine;
 
@@ -5,6 +6,8 @@ namespace Managers
 {
     public class ScoreManager : MonoBehaviour
     {
+        public event Action<int> ScoreChanged;
+        
         private int _score = 0;
         
         public static ScoreManager Instance;
@@ -15,8 +18,6 @@ namespace Managers
             {
                 Instance = this;
             }
-            
-            Actions.Actions.OnEnemyDestroyed += AddScore;
         }
 
         public int GetScore()
@@ -34,15 +35,11 @@ namespace Managers
             Actions.Actions.OnEnemyDestroyed -= AddScore;
         }
 
-        private void OnDestroy()
-        {
-            Actions.Actions.OnEnemyDestroyed -= AddScore;
-        }
-
         private void AddScore(Enemy.Enemy enemy)
         {
             _score += enemy.GetScoreForKill();
-            GameUI.Instance.SetScoreText(_score);
+            
+            ScoreChanged?.Invoke(_score);
         }
     }
 }
