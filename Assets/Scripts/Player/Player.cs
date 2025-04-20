@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -5,9 +6,12 @@ namespace Player
 {
     public class Player : MonoBehaviour
     {
+        public static event Action GameOver;
+        
         [Header("Player References")]
         [SerializeField] private PlayerHealth playerHealth;
         [SerializeField] private PlayerInput playerInput;
+        [SerializeField] private Transform startingPosition;
     
         [Header("Player Variables")]
         [Tooltip("Player's maximum health. Minimum is 1.")]
@@ -22,17 +26,14 @@ namespace Player
         [SerializeField] private SpriteRenderer weaponsSprite;
     
         private bool _canBeDamaged = true;
-        private Transform _startingPosition;
 
         public void Init(Transform startingPosition)
         {
-            _startingPosition = startingPosition;
+            this.startingPosition = startingPosition;
         }
     
         public void Start()
         {
-            Actions.Actions.NewPlayerJoined(this);
-            
             StartGame();
         }
         
@@ -47,12 +48,12 @@ namespace Player
         {
             playerInput.SwitchCurrentActionMap("Player");
             
-            transform.position = _startingPosition.position;
+            transform.position = startingPosition.position;
             
             playerHealth.Init(maxHealth);
         }
 
-        public void GameOver()
+        public void Die()
         { 
             playerRigidbody.velocity = Vector3.zero;
             playerCollider.enabled = false;
@@ -62,7 +63,8 @@ namespace Player
             weaponsSprite.enabled = false;
     
             playerInput.SwitchCurrentActionMap("UI");
-            Actions.Actions.GameOver();
+            
+            GameOver?.Invoke();
         }
     }
 }

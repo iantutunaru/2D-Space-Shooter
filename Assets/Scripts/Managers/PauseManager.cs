@@ -1,3 +1,4 @@
+using Player;
 using UI;
 using UnityEngine;
 
@@ -14,16 +15,18 @@ namespace Managers
 
         private void OnEnable()
         {
-            Actions.Actions.PauseGame += Pause;
-            Actions.Actions.ResumeGame += Unpause;
+            PlayerUIActions.PauseGame += Pause;
+            PlayerUIActions.ResumeGame += Unpause;
+            PauseMenu.ResumeGame += Unpause;
         
             _gamePaused = false;
         }
 
         private void OnDisable()
         {
-            Actions.Actions.PauseGame -= Pause;
-            Actions.Actions.ResumeGame -= Unpause;
+            PlayerUIActions.PauseGame -= Pause;
+            PlayerUIActions.ResumeGame -= Unpause;
+            PauseMenu.ResumeGame -= Unpause;
         }
     
         private void Pause()

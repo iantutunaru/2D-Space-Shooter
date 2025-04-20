@@ -1,4 +1,5 @@
 using System;
+using Enemy;
 using UI;
 using UnityEngine;
 
@@ -27,12 +28,12 @@ namespace Managers
         
         private void OnEnable()
         {
-            Actions.Actions.OnEnemyDestroyed += AddScore;
+            EnemyHealth.OnEnemyDestroyed += AddScore;
         }
 
         private void OnDisable()
         {
-            Actions.Actions.OnEnemyDestroyed -= AddScore;
+            EnemyHealth.OnEnemyDestroyed -= AddScore;
         }
 
         private void AddScore(Enemy.Enemy enemy)

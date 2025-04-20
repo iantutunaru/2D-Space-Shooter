@@ -1,3 +1,4 @@
+using Player;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,14 +10,14 @@ namespace UI
 
         private void OnEnable()
         {
-            Actions.Actions.HealthChanged += SetHealth;
-            Actions.Actions.MaxHealthChanged += SetMaxHealth;
+            PlayerHealth.HealthChanged += SetHealth;
+            PlayerHealth.MaxHealthChanged += SetMaxHealth;
         }
 
         private void OnDisable()
         {
-            Actions.Actions.HealthChanged -= SetHealth;
-            Actions.Actions.MaxHealthChanged -= SetMaxHealth;
+            PlayerHealth.HealthChanged -= SetHealth;
+            PlayerHealth.MaxHealthChanged -= SetMaxHealth;
         }
     
         private void SetMaxHealth(float health)

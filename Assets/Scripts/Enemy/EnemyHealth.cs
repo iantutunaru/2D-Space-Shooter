@@ -1,3 +1,4 @@
+using System;
 using Shaders;
 using UnityEngine;
 
@@ -5,6 +6,8 @@ namespace Enemy
 {
     public class EnemyHealth : MonoBehaviour
     {
+        public static event Action<Enemy> OnEnemyDestroyed;
+        
         [Header("Enemy References")]
         [SerializeField] private Enemy enemy;
         [SerializeField] private EnemySounds enemySounds;
@@ -44,7 +47,7 @@ namespace Enemy
         
         private void EnemyKilled()
         {
-            Actions.Actions.OnEnemyDestroyed(enemy);
+            OnEnemyDestroyed?.Invoke(enemy);
             enemySounds.PlayDeathSound();
             Managers.ObjectPoolManager.ReturnObjectToPool(gameObject);
                 

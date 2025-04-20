@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Managers;
 using UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -42,14 +43,16 @@ namespace Scene_Loader
             _instances.Add(spawnedGameBorders);
             GameObject spawnedSpawnPoints = Instantiate(spawnPoints);
             _instances.Add(spawnedSpawnPoints);
-            GameObject spawnedGameUI = Instantiate(gameUI);
-            _instances.Add(spawnedGameUI);
             GameObject spawnedPauseMenuUI = Instantiate(pauseMenuUI);
             _instances.Add(spawnedPauseMenuUI);
-            GameObject spawnedManagers = Instantiate(managers);
-            _instances.Add(spawnedManagers);
             GameObject spawnedPlayer = Instantiate(player);
             _instances.Add(spawnedPlayer);
+
+            var newPlayer = spawnedPlayer.GetComponent<Player.Player>();
+            var managersObject = InitializeManagers(newPlayer);
+            var scoreManager = managersObject.GetComponent<ScoreManager>();
+            
+            InitializeGameUi(scoreManager);
 
             GameUI.Instance.SetCanvasCamera(camera.GetComponent<Camera>());
         }
@@ -74,6 +77,28 @@ namespace Scene_Loader
             {
                 Destroy(instance);
             }
+        }
+
+        private GameObject InitializeManagers(Player.Player newPlayer)
+        {
+            var spawnedManagers = Instantiate(managers);
+            var gameManager = spawnedManagers.GetComponent<GameManager>();
+            
+            gameManager.InitPlayer(newPlayer);
+
+            _instances.Add(spawnedManagers);
+            
+            return spawnedManagers;
+        }
+
+        private void InitializeGameUi(ScoreManager scoreManager)
+        {
+            var gameUiObject = Instantiate(gameUI);
+            var spawnedGameUI = gameUiObject.GetComponent<GameUI>(); 
+            
+            spawnedGameUI.Init(scoreManager);
+            
+            _instances.Add(gameUiObject);
         }
     }
 }

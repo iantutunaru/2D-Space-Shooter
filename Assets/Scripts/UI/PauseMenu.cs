@@ -1,3 +1,4 @@
+using System;
 using Managers;
 using TMPro;
 using UnityEngine;
@@ -7,6 +8,8 @@ namespace UI
 {
     public class PauseMenu : MonoBehaviour
     {
+        public static event Action ResumeGame;
+        
         [SerializeField] private GameObject pauseMenu;
         [SerializeField] private GameObject settingsMenu;
         [SerializeField] private GameObject gameOverMenu;
@@ -24,17 +27,17 @@ namespace UI
     
         private void OnEnable()
         {
-            Actions.Actions.GameOver += GameOver;
+            Player.Player.GameOver += GameOver;
         }
 
         private void OnDisable()
         {
-            Actions.Actions.GameOver -= GameOver;
+            Player.Player.GameOver -= GameOver;
         }
     
         public void Resume()
         {
-            Actions.Actions.ResumeGame();
+            ResumeGame?.Invoke();
         }
 
         public void Pause()

@@ -13,6 +13,13 @@ namespace UI
         [SerializeField] private ScoreManager scoreManager;
     
         private Canvas _scoreCanvas;
+
+        public void Init(ScoreManager newScoreManager)
+        {
+            scoreManager = newScoreManager;
+            
+            scoreManager.ScoreChanged += OnScoreChanged;
+        }
     
         private void Awake()
         {
@@ -24,6 +31,11 @@ namespace UI
 
         private void OnEnable()
         {
+            if (scoreManager == null)
+            {
+                return;
+            }
+            
             scoreManager.ScoreChanged += OnScoreChanged;
         }
 

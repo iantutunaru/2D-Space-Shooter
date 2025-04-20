@@ -1,3 +1,4 @@
+using System;
 using Shaders;
 using UnityEngine;
 
@@ -5,6 +6,9 @@ namespace Player
 {
     public class PlayerHealth : MonoBehaviour
     {
+        public static event Action<float> HealthChanged;
+        public static event Action<float> MaxHealthChanged;
+        
         [Header("Player References")]
         [SerializeField] private Player player;
         [SerializeField] private PlayerSounds playerSounds;
@@ -26,7 +30,8 @@ namespace Player
             _maxHealth = maxHealth;
             _currentHealth = _maxHealth;
             playerAnimator.SetHealth(_currentHealth);
-            Actions.Actions.MaxHealthChanged(_currentHealth);
+            
+            MaxHealthChanged?.Invoke(_currentHealth);
         }
 
         public void DealDamage(float damage = 1f)
@@ -35,7 +40,9 @@ namespace Player
             if (_currentHealth > damage)
             {
                 _currentHealth -= damage;
-                Actions.Actions.HealthChanged(_currentHealth);
+                
+                HealthChanged?.Invoke(_currentHealth);
+                
                 playerSounds.PlayDamageSound();
                 _damageFlash.CallDamageFlash();
                 playerAnimator.SetHealth(_currentHealth);
@@ -49,7 +56,7 @@ namespace Player
                 
                 spawnedDeathParticles.GetComponent<ParticleSystem>().Play();
                 
-                player.GameOver();
+                player.Die();
             }
         }
     }

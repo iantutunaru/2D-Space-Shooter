@@ -6,19 +6,11 @@ namespace Managers
     {
         private const int SpPlayerSpawn = 8;
 
-        private void OnEnable()
+        public void InitPlayer(Player.Player player)
         {
-            Actions.Actions.NewPlayerJoined += SetNewPlayerStartingPosition;
-        }
-
-        private void OnDisable()
-        {
-            Actions.Actions.NewPlayerJoined -= SetNewPlayerStartingPosition;
-        }
-    
-        private void SetNewPlayerStartingPosition(Player.Player newPlayer)
-        {
-            newPlayer.Init(SpawnPoints.SpawnPoints.Instance.GetSpawnPoint(SpPlayerSpawn));
+            var playerSpawn = SpawnPoints.SpawnPoints.Instance.GetSpawnPoint(SpPlayerSpawn);
+            
+            player.Init(playerSpawn);
         }
     }
 }
