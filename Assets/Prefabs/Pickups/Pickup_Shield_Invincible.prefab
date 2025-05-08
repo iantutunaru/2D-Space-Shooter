@@ -12,7 +12,8 @@ GameObject:
   - component: {fileID: 999743753013140950}
   - component: {fileID: 4555031680293712647}
   - component: {fileID: 1103377330606107332}
-  - component: {fileID: 1804754086362634474}
+  - component: {fileID: -6877737071577868104}
+  - component: {fileID: -6022395847566798952}
   m_Layer: 0
   m_Name: Pickup_Shield_Invincible
   m_TagString: Untagged
@@ -94,10 +95,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pickupMovement: {fileID: 1103377330606107332}
-  pickupSinMovePattern: {fileID: 1804754086362634474}
+  pickupSinMovePattern: {fileID: 0}
   shield: 1
-  weapon: 0
-  engine: 0
 --- !u!114 &1103377330606107332
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -112,7 +111,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movementSpeed: 5
   outOfBoundsPosition: -15.1
---- !u!114 &1804754086362634474
+--- !u!114 &-6877737071577868104
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -121,12 +120,25 @@ MonoBehaviour:
   m_GameObject: {fileID: 2663878293242351768}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 751ed0f3720846a4c90eaa1ad8ed1ae7, type: 3}
+  m_Script: {fileID: 11500000, guid: 9bc13fe3f922ef746a9051961443594b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   amplitude: 1
   frequency: 1
   inverted: 0
+--- !u!114 &-6022395847566798952
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2663878293242351768}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9de2308057e0c2f4c81096ec1139e6cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pickup: {fileID: 4555031680293712647}
 --- !u!1 &6986649162628071029
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,8 +1,8 @@
 using UnityEngine;
 
-namespace Enemy
+namespace Move_Patterns
 {
-    public class EnemySinMovePattern : MonoBehaviour
+    public class SinMovePattern : MonoBehaviour
     {
         [SerializeField] private float amplitude = 2;
         [SerializeField] private float frequency = 0.5f;
@@ -10,7 +10,7 @@ namespace Enemy
 
         private float _sinCenterX;
 
-        private void Start()
+        private void OnEnable()
         {
             _sinCenterX = transform.position.x;
         }

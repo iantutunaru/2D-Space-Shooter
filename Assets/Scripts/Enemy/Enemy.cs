@@ -9,12 +9,7 @@ namespace Enemy
         
         [Header("Enemy References")]
         [SerializeField] private EnemyHealth enemyHealth;
-
-        private void Awake()
-        {
-            enemyHealth.Init(health);
-        }
-
+        
         private void OnEnable()
         {
             enemyHealth.Init(health);

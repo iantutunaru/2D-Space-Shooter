@@ -115,8 +115,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6023673083759273287}
-  - component: {fileID: 773523094024015705}
   - component: {fileID: 8323491107005157477}
+  - component: {fileID: 773523094024015705}
+  - component: {fileID: 5229096241666045608}
   m_Layer: 0
   m_Name: Bullet
   m_TagString: Untagged
@@ -140,23 +141,6 @@ Transform:
   - {fileID: 812698548718790960}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &773523094024015705
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8869326804702999370}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0b85689444be14f42b9c599b5e056ba0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  direction: {x: 0, y: 1}
-  speed: 10
-  velocity: {x: 0, y: 0}
-  enemy: 0
-  timeUntilDestruction: 3
 --- !u!70 &8323491107005157477
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -192,3 +176,34 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0.05}
   m_Size: {x: 0.2, y: 0.3}
   m_Direction: 0
+--- !u!114 &773523094024015705
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8869326804702999370}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b85689444be14f42b9c599b5e056ba0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeUntilDestruction: 3
+  projectileTrail: {fileID: 0}
+  direction: {x: 0, y: 1}
+  speed: 10
+  velocity: {x: 0, y: 0}
+  enemy: 0
+--- !u!114 &5229096241666045608
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8869326804702999370}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 560e29a53bbe2fb4fa77cd07746adf67, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  projectile: {fileID: 773523094024015705}

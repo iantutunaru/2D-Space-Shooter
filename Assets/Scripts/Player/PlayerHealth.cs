@@ -1,10 +1,11 @@
 using System;
+using Interfaces;
 using Shaders;
 using UnityEngine;
 
 namespace Player
 {
-    public class PlayerHealth : MonoBehaviour
+    public class PlayerHealth : MonoBehaviour, IDamageable
     {
         public static event Action<float> HealthChanged;
         public static event Action<float> MaxHealthChanged;
@@ -33,10 +34,17 @@ namespace Player
             
             MaxHealthChanged?.Invoke(_currentHealth);
         }
-
-        public void DealDamage(float damage = 1f)
+        
+        public void Damage(float damage = 1f)
         {
-            
+            if (player.CanBeDamaged())
+            {
+                DealDamage(damage);
+            }
+        }
+
+        private void DealDamage(float damage)
+        {
             if (_currentHealth > damage)
             {
                 _currentHealth -= damage;

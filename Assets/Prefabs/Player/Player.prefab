@@ -550,7 +550,6 @@ GameObject:
   - component: {fileID: 6847883343128947730}
   - component: {fileID: 7720044454646180465}
   - component: {fileID: 3555830721311356127}
-  - component: {fileID: 7296746258685457843}
   - component: {fileID: 7997490125379077972}
   - component: {fileID: 258927942676892772}
   - component: {fileID: 1599402592113046918}
@@ -699,6 +698,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerHealth: {fileID: 7720044454646180465}
   playerInput: {fileID: 7916193097609066685}
+  startingPosition: {fileID: 0}
   maxHealth: 4
   playerRigidbody: {fileID: 6355533943303462802}
   playerCollider: {fileID: 8744730333254609691}
@@ -751,22 +751,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   flashColor: {r: 1, g: 1, b: 1, a: 1}
   flashDuration: 0.25
---- !u!114 &7296746258685457843
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3224106332190439584}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7af3725a4a943904caedef5b0617453d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player: {fileID: 8624633767763148060}
-  playerHealth: {fileID: 7720044454646180465}
-  playerSounds: {fileID: 3920603345475004359}
-  playerPickupManager: {fileID: 7997490125379077972}
 --- !u!114 &7997490125379077972
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -780,6 +764,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerShield: {fileID: 368578633227130628}
+  playerSounds: {fileID: 3920603345475004359}
 --- !u!114 &258927942676892772
 MonoBehaviour:
   m_ObjectHideFlags: 0

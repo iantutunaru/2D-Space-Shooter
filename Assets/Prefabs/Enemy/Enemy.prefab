@@ -265,6 +265,7 @@ MonoBehaviour:
   enemy: {fileID: 3856130706411750287}
   enemySounds: {fileID: -2178476769455104187}
   deathParticles: {fileID: 9095792083887419426, guid: 723ca5259e0206a4cab9ed07a8b51ad9, type: 3}
+  damageFlash: {fileID: -3233542191548107677}
 --- !u!114 &-3233542191548107677
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -277,6 +278,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5188b723389bda04a9b72283f2268074, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  flashColor: {r: 1, g: 1, b: 1, a: 1}
+  flashDuration: 0.25
 --- !u!114 &4299666251461128612
 MonoBehaviour:
   m_ObjectHideFlags: 0
