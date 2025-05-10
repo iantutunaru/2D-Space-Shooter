@@ -20,9 +20,9 @@ namespace Enemy
         private float _maxHealth = 1f;
         private float _currentHealth = 1f;
         
-        public void Init(float maxHealth)
+        public void Init(float health)
         {
-            _maxHealth = maxHealth;
+            _maxHealth = health;
             _currentHealth = _maxHealth;
         }
         
@@ -50,12 +50,13 @@ namespace Enemy
         {
             OnEnemyDestroyed?.Invoke(enemy);
             enemySounds.PlayDeathSound();
-            Managers.ObjectPoolManager.ReturnObjectToPool(gameObject);
-                
+            
             var spawnedDeathParticles = Managers.ObjectPoolManager.SpawnObject(deathParticles.gameObject, 
                 transform.position, Quaternion.identity, Managers.ObjectPoolManager.PoolType.ParticleSystem);
                 
             spawnedDeathParticles.GetComponent<ParticleSystem>().Play();
+            
+            Managers.ObjectPoolManager.ReturnObjectToPool(gameObject);
         }
     }
 }

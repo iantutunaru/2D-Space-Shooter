@@ -1,10 +1,11 @@
+using Interfaces;
 using Managers;
 using Projectiles;
 using UnityEngine;
 
 namespace Player
 {
-    public class PlayerWeapon : MonoBehaviour
+    public class PlayerWeapon : MonoBehaviour, IFireable
     {
         [SerializeField] private Projectile projectile;
         
@@ -19,13 +20,18 @@ namespace Player
         {
             playerWeaponSounds.PlayShootingSounds();
             
+            ShootFromAllBarrels();
+        
+            weaponAnimator.SetTrigger(_gunShot);
+        }
+
+        private void ShootFromAllBarrels()
+        {
             foreach (var firePoint in weaponLocations)
             {
                 ObjectPoolManager.SpawnObject(projectile.gameObject, firePoint.position, Quaternion.identity, 
-                                                                                ObjectPoolManager.PoolType.Projectile);
+                    ObjectPoolManager.PoolType.Projectile);
             }
-        
-            weaponAnimator.SetTrigger(_gunShot);
         }
     }
 }

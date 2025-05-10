@@ -1,7 +1,5 @@
 using Interfaces;
-using Managers;
 using Player;
-using Projectiles;
 using UnityEngine;
 
 namespace Enemy
@@ -19,12 +17,7 @@ namespace Enemy
         {
             canBeDestroyed = false;
         }
-
-        private void OnDisable()
-        {
-            canBeDestroyed = false;
-        }
-    
+        
         private void Update()
         {
             if (transform.position.y <= screenBoundsPosition)

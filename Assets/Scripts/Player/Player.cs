@@ -26,10 +26,12 @@ namespace Player
         [SerializeField] private SpriteRenderer weaponsSprite;
     
         private bool _canBeDamaged = true;
+        
+        public bool CanBeDamaged() => _canBeDamaged;
 
-        public void Init(Transform startingPosition)
+        public void Init(Transform newPosition)
         {
-            this.startingPosition = startingPosition;
+            startingPosition = newPosition;
         }
     
         public void Start()
@@ -37,13 +39,6 @@ namespace Player
             StartGame();
         }
         
-        public void ToggleDamage()
-        {
-            _canBeDamaged = !_canBeDamaged;
-        }
-    
-        public bool CanBeDamaged() => _canBeDamaged;
-
         private void StartGame()
         {
             playerInput.SwitchCurrentActionMap("Player");
@@ -52,19 +47,29 @@ namespace Player
             
             playerHealth.Init(maxHealth);
         }
+        
+        public void ToggleDamage()
+        {
+            _canBeDamaged = !_canBeDamaged;
+        }
 
         public void Die()
         { 
+            DisableMovementAndVisuals();
+    
+            playerInput.SwitchCurrentActionMap("UI");
+            
+            GameOver?.Invoke();
+        }
+
+        private void DisableMovementAndVisuals()
+        {
             playerRigidbody.velocity = Vector3.zero;
             playerCollider.enabled = false;
             playerSprite.enabled = false;
             engineSprite.enabled = false;
             enginePowerSprite.enabled = false; 
             weaponsSprite.enabled = false;
-    
-            playerInput.SwitchCurrentActionMap("UI");
-            
-            GameOver?.Invoke();
         }
     }
 }

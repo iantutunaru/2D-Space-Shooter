@@ -20,22 +20,33 @@ namespace Projectiles
         [SerializeField] private bool enemy = false; 
     
         private Coroutine _returnToPoolTimerCoroutine;
-    
-        private void Update()
+        
+        private void FixedUpdate()
         {
             velocity = direction * speed;
+            
+            Vector2 position = transform.position;
+        
+            position += velocity * Time.fixedDeltaTime;
+        
+            transform.position = position;
         }
 
         private void OnEnable()
         {
             _returnToPoolTimerCoroutine = StartCoroutine(ReturnToPoolAfterTime());
-            if (projectileTrail != null)
-            {
-                var spawnedProjectileTrail = ObjectPoolManager.SpawnObject(projectileTrail.gameObject, 
-                    transform.position, Quaternion.identity, ObjectPoolManager.PoolType.ParticleSystem);
+
+            CreateTrail();
+        }
+
+        private void CreateTrail()
+        {
+            if (projectileTrail == null) return;
             
-                spawnedProjectileTrail.GetComponent<ParticleSystem>().Play();
-            }
+            var spawnedProjectileTrail = ObjectPoolManager.SpawnObject(projectileTrail.gameObject, 
+                transform.position, Quaternion.identity, ObjectPoolManager.PoolType.ParticleSystem);
+            
+            spawnedProjectileTrail.GetComponent<ParticleSystem>().Play();
         }
 
         private IEnumerator ReturnToPoolAfterTime()
@@ -50,16 +61,7 @@ namespace Projectiles
         
             ObjectPoolManager.ReturnObjectToPool(gameObject);
         }
-
-        private void FixedUpdate()
-        {
-            Vector2 position = transform.position;
         
-            position += velocity * Time.fixedDeltaTime;
-        
-            transform.position = position;
-        }
-
         public bool IsEnemy()
         {
             return enemy;

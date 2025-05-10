@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8032757199552558634}
   - component: {fileID: 999743753013140950}
   - component: {fileID: 4555031680293712647}
-  - component: {fileID: 1103377330606107332}
+  - component: {fileID: -4101954624074968351}
   - component: {fileID: -6877737071577868104}
   - component: {fileID: -6022395847566798952}
   m_Layer: 0
@@ -94,10 +94,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2491f80f40411546934631ac2bcd2b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pickupMovement: {fileID: 1103377330606107332}
-  pickupSinMovePattern: {fileID: 0}
   shield: 1
---- !u!114 &1103377330606107332
+--- !u!114 &-4101954624074968351
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -106,7 +104,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2663878293242351768}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 589ae4dc33b5df94294c807c43fb2ba2, type: 3}
+  m_Script: {fileID: 11500000, guid: 70388bbcd1fca854f91be49bb80e43f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   movementSpeed: 5

@@ -64,6 +64,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1326178085323557999, guid: ab88211c457343240ba3d0b5199cd3d4, type: 3}
+      propertyPath: movementSpeed
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 1359454802604471536, guid: ab88211c457343240ba3d0b5199cd3d4, type: 3}
       propertyPath: m_Name
       value: LargeAsteroid

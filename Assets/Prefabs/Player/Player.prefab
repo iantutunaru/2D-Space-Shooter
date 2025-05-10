@@ -816,12 +816,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7945000f84b119f44a5a402ce792abdf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damageSounds:
+  - {fileID: 8300000, guid: a56be8f294e500d409d98b8490eae866, type: 3}
+  deathSounds:
+  - {fileID: 8300000, guid: e8fdfc7ef00798e439c8d28a3ff7a14c, type: 3}
   shootingSounds:
   - {fileID: 8300000, guid: a036770732259464a9bd5516956f5091, type: 3}
   - {fileID: 8300000, guid: 9c6efe11480abc140be514e041f5d497, type: 3}
   - {fileID: 8300000, guid: fcb370601b3c5c84698a2be4793bcb4f, type: 3}
-  damageSound: {fileID: 8300000, guid: a56be8f294e500d409d98b8490eae866, type: 3}
-  deathSound: {fileID: 8300000, guid: e8fdfc7ef00798e439c8d28a3ff7a14c, type: 3}
   shieldSound: {fileID: 8300000, guid: 9dc1134d3594cdb47af260d99c22b72a, type: 3}
 --- !u!1 &5168808816385877572
 GameObject:

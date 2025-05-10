@@ -1,10 +1,11 @@
+using Interfaces;
 using Managers;
 using Projectiles;
 using UnityEngine;
 
 namespace Weapons
 {
-    public class Weapon : MonoBehaviour
+    public class Weapon : MonoBehaviour, IFireable
     {
         [SerializeField] private bool autoFire = true;
         [SerializeField] private float fireRate = 0.5f;
@@ -30,7 +31,7 @@ namespace Weapons
             }
         }
 
-        private void Fire()
+        public void Fire()
         {
             weaponSounds.PlayShootingSounds();
             ObjectPoolManager.SpawnObject(projectile.gameObject, transform.position, Quaternion.identity, 

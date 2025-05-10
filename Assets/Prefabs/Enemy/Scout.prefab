@@ -89,6 +89,10 @@ PrefabInstance:
       propertyPath: movementSpeed
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 7374130791780394431, guid: 707486ccabd6c184facd4600a86c3dea, type: 3}
+      propertyPath: movementSpeed
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 7416421309656685856, guid: 707486ccabd6c184facd4600a86c3dea, type: 3}
       propertyPath: m_Name
       value: Scout
