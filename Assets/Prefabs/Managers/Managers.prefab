@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4932532094442395131}
   - component: {fileID: 7957946814461179102}
-  - component: {fileID: 2575999142284823571}
   - component: {fileID: 3852542130908440284}
   - component: {fileID: 6244396428941126181}
   - component: {fileID: 4999536339933922681}
@@ -87,18 +86,6 @@ MonoBehaviour:
     y: 0
     width: 1
     height: 1
---- !u!114 &2575999142284823571
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7042915813150279774}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d8313ffe890cc2a4581616073630942a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &3852542130908440284
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -125,7 +112,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timeBetweenWaves: 1
   timeBetweenPickups: 10
-  gameManager: {fileID: 2575999142284823571}
   spawnManager: {fileID: 4999536339933922681}
 --- !u!114 &4999536339933922681
 MonoBehaviour:
@@ -139,16 +125,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e39301c48cb0954481e38580415629d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameManager: {fileID: 2575999142284823571}
   scoreManager: {fileID: 3852542130908440284}
   normalSizedObjectOffset: 1
   largeSizedObjectOffset: 2
-  sinSpawnOffset: 1.65
+  sinMovementObjectOffset: 1.65
   minEnemies: 1
   maxEnemies: 5
   minObstacleLineObstacles: 1
   maxObstacleLineObstacles: 2
   largeObstacle: {fileID: 294836224134427924, guid: 15fab588aae700c4cb0dd8e1d6335ea4, type: 3}
+  pickups:
+  - {fileID: 2663878293242351768, guid: cbe5120139d9ade46aa1a9f34d75575b, type: 3}
   shieldPickup: {fileID: 2663878293242351768, guid: cbe5120139d9ade46aa1a9f34d75575b, type: 3}
   spawnPointYAndZ: {fileID: 5826450790081000738}
   gameCanvas: {fileID: 0}

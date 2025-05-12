@@ -8,7 +8,6 @@ namespace Managers
         [SerializeField] private float timeBetweenPickups = 15f;
     
         [Header("Manager References")]
-        [SerializeField] private GameManager gameManager;
         [SerializeField] private SpawnManager spawnManager;
     
         private float _waveTimer = 0;

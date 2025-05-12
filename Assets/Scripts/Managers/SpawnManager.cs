@@ -7,7 +7,6 @@ namespace Managers
     public class SpawnManager : MonoBehaviour
     {
         [Header("Managers")]
-        [SerializeField] private GameManager gameManager;
         [SerializeField] private ScoreManager scoreManager;
         
         [Header("Spawn Settings")]
@@ -26,8 +25,8 @@ namespace Managers
         [Header("Large Asteroid Parameters")]
         [SerializeField] private GameObject largeObstacle;
     
-        [Header("Shield Pickup Parameters")]
-        [SerializeField] private GameObject shieldPickup;
+        [Header("Pickup Parameters")]
+        [SerializeField] private GameObject[] pickups;
         
         [Header("Spawn Points")]
         [SerializeField] private Transform spawnPointYAndZ;
@@ -38,7 +37,7 @@ namespace Managers
         private float _minSinSpawnTransformX, _maxSinSpawnTransformX;
         private float _minAsteroidTransformX, _maxAsteroidTransformX;
         private float _minLargeAsteroidTransformX, _maxLargeAsteroidTransformX;
-        private float _minShieldSpawnTransformX, _maxShieldSpawnTransformX;
+        private float _minPickupSpawnTransformX, _maxPickupSpawnTransformX;
         private float _transformY;
         private float _maxScreenWidth;
         private float _minScreenWidth;
@@ -68,8 +67,8 @@ namespace Managers
             _minLargeAsteroidTransformX = _minScreenWidth+largeSizedObjectOffset;
             _maxLargeAsteroidTransformX = _maxScreenWidth-largeSizedObjectOffset;
         
-            _minShieldSpawnTransformX = _minScreenWidth+normalSizedObjectOffset;
-            _maxShieldSpawnTransformX = _maxScreenWidth-normalSizedObjectOffset;
+            _minPickupSpawnTransformX = _minScreenWidth+normalSizedObjectOffset;
+            _maxPickupSpawnTransformX = _maxScreenWidth-normalSizedObjectOffset;
             
             _transformY = spawnPointYAndZ.position.y;
         }
@@ -99,22 +98,19 @@ namespace Managers
             
             var asteroidRotation = Quaternion.Euler(0, 0, Random.Range(0, 360));
             
-            var spawnedLargeAsteroid = ObjectPoolManager.SpawnObject(largeObstacle, largeAsteroidSpawnPoint, 
-                asteroidRotation, ObjectPoolManager.PoolType.Enemy);
+            ObjectPoolManager.SpawnObject(largeObstacle, largeAsteroidSpawnPoint, asteroidRotation, 
+                ObjectPoolManager.PoolType.Obstacle);
         }
 
         public void SpawnPickup()
         {
-            SpawnShieldPickup();
-        }
-
-        private void SpawnShieldPickup()
-        {
-            var shieldSpawnPoint = new Vector3(Random.Range(_minShieldSpawnTransformX, _maxShieldSpawnTransformX), 
+            var pickupIndex = Random.Range(0, pickups.Length);
+            
+            var pickupSpawnPoint = new Vector3(Random.Range(_minPickupSpawnTransformX, _maxPickupSpawnTransformX), 
                 _transformY);
         
-            var newShieldPickup = ObjectPoolManager.SpawnObject(shieldPickup, shieldSpawnPoint, 
-                Quaternion.identity, ObjectPoolManager.PoolType.Enemy);
+            ObjectPoolManager.SpawnObject(pickups[pickupIndex], pickupSpawnPoint, Quaternion.identity, 
+                ObjectPoolManager.PoolType.Pickup);
         }
     }
 }

@@ -16,6 +16,8 @@ namespace Player
         [SerializeField] private PlayerAnimator playerAnimator;
         [Header("Assets")]
         [SerializeField] private ParticleSystem deathParticles;
+        [Header("Testing Settings")]
+        [SerializeField] private bool invincible = false;
         
         private float _maxHealth = 1f;
         private float _currentHealth = 1f;
@@ -45,6 +47,8 @@ namespace Player
 
         private void DealDamage(float damage)
         {
+            if (invincible) return;
+            
             if (_currentHealth > damage)
             {
                 _currentHealth -= damage;

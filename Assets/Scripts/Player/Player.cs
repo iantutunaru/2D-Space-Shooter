@@ -30,12 +30,12 @@ namespace Player
         
         public bool CanBeDamaged() => _canBeDamaged;
         
-        public void Start()
+        private void Start()
         {
             PlayerManager.Instance.AddNewPlayer(this);
         }
         
-        public void OnEnable()
+        private void OnEnable()
         {
             StartGame();
         }

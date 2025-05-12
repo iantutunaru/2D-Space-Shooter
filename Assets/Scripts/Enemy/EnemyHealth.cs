@@ -19,7 +19,13 @@ namespace Enemy
         
         private float _maxHealth = 1f;
         private float _currentHealth = 1f;
-        
+        private bool _returned = false;
+
+        private void OnEnable()
+        {
+            _returned = false;
+        }
+
         public void Init(float health)
         {
             _maxHealth = health;
@@ -28,6 +34,8 @@ namespace Enemy
         
         public void Damage(float damage = 1)
         {
+            if (_returned) return;
+            
             DealDamage(damage);
         }
 
@@ -56,6 +64,7 @@ namespace Enemy
                 
             spawnedDeathParticles.GetComponent<ParticleSystem>().Play();
             
+            _returned = true;
             Managers.ObjectPoolManager.ReturnObjectToPool(gameObject);
         }
     }

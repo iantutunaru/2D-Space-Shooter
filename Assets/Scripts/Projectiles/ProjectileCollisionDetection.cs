@@ -1,3 +1,4 @@
+using System;
 using Interfaces;
 using Managers;
 using Unity.VisualScripting;
@@ -8,8 +9,18 @@ namespace Projectiles
     public class ProjectileCollisionDetection : MonoBehaviour
     {
         [SerializeField] private Projectile projectile;
+        
+        private bool _returned = false;
+
+        private void OnEnable()
+        {
+            _returned = false;
+        }
+
         private void OnTriggerEnter2D(Collider2D collision)
         {
+            if (_returned) return;
+            
             if (CheckIfPlayerIsShotByPlayer(collision)) return;
             
             if (CheckIfEnemyIsShotByEnemy(collision)) return;
@@ -22,6 +33,8 @@ namespace Projectiles
             var damageableObject = collision.GetComponent<IDamageable>();
             
             damageableObject?.Damage();
+
+            _returned = true;
             
             ObjectPoolManager.ReturnObjectToPool(gameObject);
         }

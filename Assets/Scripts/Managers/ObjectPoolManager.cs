@@ -9,22 +9,27 @@ namespace Managers
         private static readonly List<PooledObjectInfo> ObjectPools = new List<PooledObjectInfo>();
 
         private GameObject _objectPoolEmptyHolder;
-
-        private static GameObject _particleSystemsEmpty;
-        private static GameObject _enemiesEmpty;
-        private static GameObject _projectilesEmpty;
+        
         private static GameObject _playersEmpty;
+        private static GameObject _enemiesEmpty;
+        private static GameObject _obstaclesEmpty;
+        private static GameObject _pickupsEmpty;
+        private static GameObject _projectilesEmpty;
+        private static GameObject _particleSystemsEmpty;
         private static GameObject _audioSourcesEmpty;
-    
+        
         public enum PoolType
         {
-            ParticleSystem,
-            Enemy,
-            Projectile,
             Player,
+            Enemy,
+            Obstacle,
+            Pickup,
+            Projectile,
+            ParticleSystem,
             AudioSource,
             None
         }
+        
         public static PoolType PoolingType;
 
         private void Awake()
@@ -41,6 +46,12 @@ namespace Managers
         
             _enemiesEmpty = new GameObject("Enemies");
             _enemiesEmpty.transform.SetParent(_objectPoolEmptyHolder.transform);
+            
+            _obstaclesEmpty = new GameObject("Obstacles");
+            _obstaclesEmpty.transform.SetParent(_objectPoolEmptyHolder.transform);
+            
+            _pickupsEmpty = new GameObject("Pickup");
+            _pickupsEmpty.transform.SetParent(_objectPoolEmptyHolder.transform);
         
             _projectilesEmpty = new GameObject("Projectiles");
             _projectilesEmpty.transform.SetParent(_objectPoolEmptyHolder.transform);
@@ -55,7 +66,9 @@ namespace Managers
         public static GameObject SpawnObject(GameObject objectToSpawn, Vector3 spawnPosition, Quaternion spawnRotation, 
             PoolType poolType = PoolType.None)
         {
-            PooledObjectInfo pool = ObjectPools.Find(p => p.LookupString == objectToSpawn.name);
+            var pool = ObjectPools.Find(p => p.LookupString == objectToSpawn.name);
+            
+            Debug.Log(objectToSpawn.name + " to spawn");
 
             if (pool == null)
             {
@@ -63,7 +76,7 @@ namespace Managers
                 ObjectPools.Add(pool);
             }
         
-            GameObject spawnableObject = pool.InactiveObjects.FirstOrDefault();
+            var spawnableObject = pool.InactiveObjects.FirstOrDefault();
 
             if (spawnableObject == null)
             {
@@ -78,6 +91,8 @@ namespace Managers
             }
             else
             {
+                Debug.Log(spawnableObject.gameObject.name + " reused");
+                
                 spawnableObject.transform.position = spawnPosition;
                 spawnableObject.transform.rotation = spawnRotation;
                 pool.InactiveObjects.Remove(spawnableObject);
@@ -115,6 +130,7 @@ namespace Managers
         public static void ReturnObjectToPool (GameObject objectToReturn)
         {
             string goName = objectToReturn.name.Substring(0, objectToReturn.name.Length - 7);
+            
             Debug.Log(goName);
         
             PooledObjectInfo pool = ObjectPools.Find(p => p.LookupString == goName);
@@ -139,6 +155,12 @@ namespace Managers
             
                 case PoolType.Enemy:
                     return _enemiesEmpty;
+                
+                case PoolType.Obstacle:
+                    return _obstaclesEmpty;
+                
+                case PoolType.Pickup:
+                    return _pickupsEmpty;
             
                 case PoolType.Projectile:
                     return _projectilesEmpty;
@@ -148,9 +170,10 @@ namespace Managers
             
                 case PoolType.AudioSource:
                     return _audioSourcesEmpty;
-            
+                
                 case PoolType.None:
                     return null;
+                
                 default:
                     return null;
             }

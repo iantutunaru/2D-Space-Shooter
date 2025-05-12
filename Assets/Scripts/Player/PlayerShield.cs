@@ -12,7 +12,7 @@ namespace Player
         private float _shieldTimer = 0;
         private bool _isShieldActive = false;
     
-        public void Update()
+        private void Update()
         {
             ShieldTimeLimit();
         }

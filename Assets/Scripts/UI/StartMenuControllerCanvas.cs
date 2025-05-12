@@ -10,7 +10,7 @@ namespace UI
         [SerializeField] private GameObject startMenu;
         [SerializeField] private GameObject settingsMenu;
 
-        public void Start()
+        private void Start()
         {
             Cursor.visible = true;
         }

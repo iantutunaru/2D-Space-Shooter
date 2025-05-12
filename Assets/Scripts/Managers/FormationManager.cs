@@ -24,16 +24,22 @@ namespace Managers
         {
             var nextPosition = spawnPoint;
             var nextObstacleRotation = RandomizeRotationForObstacles(isObstacle);
+            var poolType = ChooseObjectPoolType(isObstacle);
             var objectToSpawn = ChooseObjectToSpawn(isObstacle);
             
             for (int i = 0; i < numberOfObjectsInFormation; i++)
             {
                 var spawnedEnemy = ObjectPoolManager.SpawnObject(objectToSpawn, nextPosition, 
-                                                                nextObstacleRotation, ObjectPoolManager.PoolType.Enemy);
+                                                                nextObstacleRotation, poolType);
             
                 nextPosition = NextPosition(nextPosition, isObstacle);
                 nextObstacleRotation = RandomizeRotationForObstacles(isObstacle);
             }
+        }
+
+        private ObjectPoolManager.PoolType ChooseObjectPoolType(bool isObstacle)
+        {
+            return isObstacle ? ObjectPoolManager.PoolType.Obstacle : ObjectPoolManager.PoolType.Enemy;
         }
 
         private GameObject ChooseObjectToSpawn(bool isObstacle)
