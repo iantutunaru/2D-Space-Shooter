@@ -1,4 +1,5 @@
 using System;
+using Managers;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -16,14 +17,14 @@ namespace Player
         
         public void OnOpenMenu(InputValue value)
         {
-            playerInput.SwitchCurrentActionMap(_actionMapUI);
+            PlayerManager.Instance.ChangeControlSchemeForAllPlayers(_actionMapUI);
             
             PauseGame?.Invoke();
         }
 
         public void OnCloseMenu(InputValue value)
         {
-            playerInput.SwitchCurrentActionMap(_actionMapNormalPlayerInput);
+            PlayerManager.Instance.ChangeControlSchemeForAllPlayers(_actionMapNormalPlayerInput);
             
             ResumeGame?.Invoke();
         }

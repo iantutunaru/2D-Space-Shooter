@@ -1,4 +1,5 @@
 using System;
+using Managers;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -28,13 +29,13 @@ namespace Player
         private bool _canBeDamaged = true;
         
         public bool CanBeDamaged() => _canBeDamaged;
-
-        public void Init(Transform newPosition)
-        {
-            startingPosition = newPosition;
-        }
-    
+        
         public void Start()
+        {
+            PlayerManager.Instance.AddNewPlayer(this);
+        }
+        
+        public void OnEnable()
         {
             StartGame();
         }
@@ -47,6 +48,11 @@ namespace Player
             
             playerHealth.Init(maxHealth);
         }
+
+        public void ChangeControlScheme(string controlScheme)
+        {
+            playerInput.SwitchCurrentActionMap(controlScheme);
+        }
         
         public void ToggleDamage()
         {
@@ -56,9 +62,7 @@ namespace Player
         public void Die()
         { 
             DisableMovementAndVisuals();
-    
-            playerInput.SwitchCurrentActionMap("UI");
-            
+
             GameOver?.Invoke();
         }
 

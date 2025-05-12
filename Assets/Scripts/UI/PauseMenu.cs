@@ -42,15 +42,17 @@ namespace UI
 
         public void Pause()
         {
+            PlayerManager.Instance.ChangeControlSchemeForAllPlayers("UI");
+            
             pauseMenu.SetActive(true);
-            Cursor.visible = true;
         }
 
         public void Unpause()
         {
+            PlayerManager.Instance.ChangeControlSchemeForAllPlayers("Player");
+            
             pauseMenu.SetActive(false);
             settingsMenu.SetActive(false);
-            Cursor.visible = false;
         }
 
         public void OpenSettings()
@@ -79,6 +81,8 @@ namespace UI
 
         private void GameOver()
         {
+            PlayerManager.Instance.ChangeControlSchemeForAllPlayers("UI");
+            
             Cursor.visible = true;
             GameUI.Instance.gameObject.SetActive(false);
             scoreText.text = "You score is:" + System.Environment.NewLine + ScoreManager.Instance.GetScore() + " points";

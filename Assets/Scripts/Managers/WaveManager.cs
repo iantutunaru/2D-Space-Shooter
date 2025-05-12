@@ -11,10 +11,15 @@ namespace Managers
         [SerializeField] private GameManager gameManager;
         [SerializeField] private SpawnManager spawnManager;
     
-        private float _waveTimer = 0.0f;
-        private float _pickupTimer = 0.0f;
-    
-        public void Update()
+        private float _waveTimer = 0;
+        private float _pickupTimer = 0;
+        
+        private const int OutOfBoundsWave = 0;
+        private const int LineFormationWave = 1;
+        private const int AsteroidWave = 2;
+        private const int LargeAsteroidWave = 3;
+        
+        private void Update()
         {
             CreateWave();
             CreatePickup();
@@ -24,11 +29,37 @@ namespace Managers
         {
             if (_waveTimer >= timeBetweenWaves)
             {
-                spawnManager.SpawnWave();
+                SpawnWave();
                 _waveTimer = 0.0f;
             } else {
                 _waveTimer += Time.deltaTime;
             }
+        }
+        
+        private void SpawnWave()
+        {
+            var waveType = ChooseWaveType();
+        
+            switch (waveType)
+            {
+                case LineFormationWave:
+                    spawnManager.SpawnLineFormation();
+                    break;
+                case AsteroidWave:
+                    spawnManager.SpawnAsteroids();
+                    break;
+                case LargeAsteroidWave:
+                    spawnManager.SpawnLargeAsteroid();
+                    break;
+                case OutOfBoundsWave:
+                    Debug.LogWarning("ERROR: Wave Type out of range.");
+                    break;
+            }
+        }
+    
+        private static int ChooseWaveType()
+        {
+            return Random.Range(LineFormationWave, LargeAsteroidWave+1);
         }
 
         private void CreatePickup()

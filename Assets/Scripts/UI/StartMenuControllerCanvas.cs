@@ -9,7 +9,12 @@ namespace UI
         [SerializeField] private AudioSource buttonAudio;
         [SerializeField] private GameObject startMenu;
         [SerializeField] private GameObject settingsMenu;
-    
+
+        public void Start()
+        {
+            Cursor.visible = true;
+        }
+        
         public void OnStartButtonClicked()
         {
             PlayButtonSound();

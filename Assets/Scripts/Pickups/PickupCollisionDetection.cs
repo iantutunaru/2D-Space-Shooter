@@ -1,6 +1,4 @@
 using Interfaces;
-using Managers;
-using Player;
 using UnityEngine;
 
 namespace Pickups
@@ -13,13 +11,7 @@ namespace Pickups
         {
             if (CheckIfColliderWithPlayer(collision))
             {
-                if (pickup.IsShield)
-                {
-                    if (CheckIfPlayerCanUseShield(collision))
-                    {
-                        GivePlayerShield(collision);
-                    }
-                }
+                    pickup.GivePickupEffect(collision);
             }
         }
 
@@ -28,22 +20,6 @@ namespace Pickups
             var player = collision.gameObject.GetComponent<Player.Player>();
 
             return player != null;
-        }
-
-        private bool CheckIfPlayerCanUseShield(Collider2D collision)
-        {
-            var player = collision.gameObject.GetComponent<Player.Player>();
-
-            return player.CanBeDamaged();
-        }
-
-        private void GivePlayerShield(Collider2D collision)
-        {
-            var playerPickupManager = collision.GetComponent<PlayerPickupManager>();
-        
-            playerPickupManager.PickedShieldUp();
-            
-            ObjectPoolManager.ReturnObjectToPool(gameObject);
         }
     }
 }

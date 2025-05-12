@@ -20,6 +20,11 @@ namespace UI
             
             scoreManager.ScoreChanged += OnScoreChanged;
         }
+
+        private void Start()
+        {
+            Cursor.visible = false;
+        }
     
         private void Awake()
         {
@@ -31,11 +36,6 @@ namespace UI
 
         private void OnEnable()
         {
-            if (scoreManager == null)
-            {
-                return;
-            }
-            
             scoreManager.ScoreChanged += OnScoreChanged;
         }
 

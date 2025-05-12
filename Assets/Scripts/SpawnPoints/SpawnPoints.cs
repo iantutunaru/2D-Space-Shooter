@@ -8,15 +8,7 @@ namespace SpawnPoints
         [SerializeField] private List<Transform> spawnPoints;
     
         public static SpawnPoints Instance;
-    
-        private void Awake()
-        {
-            if (Instance == null)
-            {
-                Instance = this;
-            }
-        }
-    
+        
         // "SP" stands for Spawn Point
         private const int SpsSinMovementMin = 0;
         private const int SpsSinMovementMax = 1;
@@ -27,29 +19,37 @@ namespace SpawnPoints
         private const int SpsPickupSpawnMin = 6;
         private const int SpsPickupSpawnMax = 7;
         private const int SpPlayerSpawn = 8;
-
+    
+        private void Awake()
+        {
+            if (Instance == null)
+            {
+                Instance = this;
+            }
+        }
+        
         public Transform GetSpawnPoint(int index)
         {
             switch (index)
             {
                 case SpsSinMovementMin:
-                    return spawnPoints[0];
+                    return spawnPoints[SpsSinMovementMin];
                 case SpsSinMovementMax:
-                    return spawnPoints[1];
+                    return spawnPoints[SpsSinMovementMax];
                 case SpObstacleLineMin:
-                    return spawnPoints[2];
+                    return spawnPoints[SpObstacleLineMin];
                 case SpObstacleLineMax:
-                    return spawnPoints[3];
+                    return spawnPoints[SpObstacleLineMax];
                 case SpsLargeObstacleMin:
-                    return spawnPoints[4];
+                    return spawnPoints[SpsLargeObstacleMin];
                 case SpsLargeObstacleMax:
-                    return spawnPoints[5];
+                    return spawnPoints[SpsLargeObstacleMax];
                 case SpsPickupSpawnMin:
-                    return spawnPoints[6];
+                    return spawnPoints[SpsPickupSpawnMin];
                 case SpsPickupSpawnMax:
-                    return spawnPoints[7];
+                    return spawnPoints[SpsPickupSpawnMax];
                 case SpPlayerSpawn:
-                    return spawnPoints[8];
+                    return spawnPoints[SpPlayerSpawn];
                 default:
                     Debug.LogWarning("ERROR: Spawn point transform index is out of range.");
                     return null;
