@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &6700768766010888006
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4909267214041742542}
+  m_Layer: 0
+  m_Name: PlayerSpawn
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4909267214041742542
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6700768766010888006}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -12, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4932532094442395131}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7042915813150279774
 GameObject:
   m_ObjectHideFlags: 0
@@ -40,6 +71,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5826450790081000738}
+  - {fileID: 4909267214041742542}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7957946814461179102
@@ -136,7 +168,6 @@ MonoBehaviour:
   largeObstacle: {fileID: 294836224134427924, guid: 15fab588aae700c4cb0dd8e1d6335ea4, type: 3}
   pickups:
   - {fileID: 2663878293242351768, guid: cbe5120139d9ade46aa1a9f34d75575b, type: 3}
-  shieldPickup: {fileID: 2663878293242351768, guid: cbe5120139d9ade46aa1a9f34d75575b, type: 3}
   spawnPointYAndZ: {fileID: 5826450790081000738}
   gameCanvas: {fileID: 0}
 --- !u!114 &7906892500439900806
@@ -227,7 +258,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5826450790081000738}
   m_Layer: 0
-  m_Name: SpawnCoordinatesYAndZ
+  m_Name: SpawnYCoordinates
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -10,7 +10,7 @@ namespace Movement
 
         private bool OutOfBounds => (transform.position.y <= outOfBoundsPosition);
 
-        private void FixedUpdate()
+        protected virtual void FixedUpdate()
         {
             Vector2 position = transform.position;
 

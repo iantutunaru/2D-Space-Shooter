@@ -339,6 +339,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projectile: {fileID: 4328117949792878862, guid: 2bd78671d6109e840a823937122a33ef, type: 3}
+  reloadTime: 0.5
   weaponLocations:
   - {fileID: 6784235866965769212}
   - {fileID: 8241748324254966261}
@@ -737,6 +738,7 @@ MonoBehaviour:
   playerSounds: {fileID: 3920603345475004359}
   playerAnimator: {fileID: 1599402592113046918}
   deathParticles: {fileID: 9095792083887419426, guid: 723ca5259e0206a4cab9ed07a8b51ad9, type: 3}
+  invincible: 1
 --- !u!114 &3555830721311356127
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -777,6 +779,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33fd43de8ca61f24c85d82288258cb03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weapons:
+  - {fileID: 6438753231734609612}
 --- !u!114 &1599402592113046918
 MonoBehaviour:
   m_ObjectHideFlags: 0

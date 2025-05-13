@@ -1,13 +1,16 @@
 using System.Collections;
 using Managers;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Projectiles
 {
     public class Projectile : MonoBehaviour
     {
+        public float projectileDamage = 1;
+        
         [SerializeField] private float timeUntilDestruction = 3;
-    
+        
         [Header("Projectile Assets")]
         [SerializeField] private ParticleSystem projectileTrail;
     

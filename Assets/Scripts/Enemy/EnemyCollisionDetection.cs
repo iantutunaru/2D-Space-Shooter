@@ -6,29 +6,13 @@ namespace Enemy
 {
     public class EnemyCollisionDetection : MonoBehaviour, ICollidable
     {
-        [SerializeField] private bool canBeDestroyed = false;
-        [SerializeField] private float screenBoundsPosition = 13.2f;
-    
         [Header("Enemy References")]
         [SerializeField] private Enemy enemy;
         [SerializeField] private EnemyHealth enemyHealth;
         
-        private void OnEnable()
-        {
-            canBeDestroyed = false;
-        }
-        
-        private void Update()
-        {
-            if (transform.position.y <= screenBoundsPosition)
-            {
-                canBeDestroyed = true;
-            }    
-        }
-
         public void OnTriggerEnter2D(Collider2D collision)
         {
-            if (!canBeDestroyed) return;
+            if (!enemyHealth.CanBeDamaged) return;
 
             CheckIfCollidedWithPlayer(collision);
         }

@@ -5,9 +5,11 @@ using UnityEngine;
 
 namespace Enemy
 {
-    public class EnemyHealth : MonoBehaviour, IDamageable
+    public class EnemyHealth : MonoBehaviour, IDamageable, IPoolReturnable
     {
         public static event Action<Enemy> OnEnemyDestroyed;
+        public bool Returned { get; set; }
+        public bool CanBeDamaged { get; set; }
         
         [Header("Enemy References")]
         [SerializeField] private Enemy enemy;
@@ -19,11 +21,11 @@ namespace Enemy
         
         private float _maxHealth = 1f;
         private float _currentHealth = 1f;
-        private bool _returned = false;
-
+        
         private void OnEnable()
         {
-            _returned = false;
+            Returned = false;
+            CanBeDamaged = false;
         }
 
         public void Init(float health)
@@ -34,7 +36,9 @@ namespace Enemy
         
         public void Damage(float damage = 1)
         {
-            if (_returned) return;
+            if (Returned) return;
+            
+            if (!CanBeDamaged) return;
             
             DealDamage(damage);
         }
@@ -64,8 +68,10 @@ namespace Enemy
                 
             spawnedDeathParticles.GetComponent<ParticleSystem>().Play();
             
-            _returned = true;
+            Returned = true;
             Managers.ObjectPoolManager.ReturnObjectToPool(gameObject);
         }
+
+        
     }
 }

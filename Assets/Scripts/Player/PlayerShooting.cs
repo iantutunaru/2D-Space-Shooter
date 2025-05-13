@@ -1,16 +1,12 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 
 namespace Player
 {
     public class PlayerShooting : MonoBehaviour
     {
-        private PlayerWeapon[] _weapons;
-        
-        private void Awake()
-        {
-            _weapons = transform.GetComponentsInChildren<PlayerWeapon>();
-        }
+        [SerializeField]private PlayerWeapon[] weapons;
         
         public void OnShoot(InputValue value)
         {
@@ -19,7 +15,7 @@ namespace Player
 
         private void ShootWeapon()
         {
-            foreach (var weapon in _weapons)
+            foreach (var weapon in weapons)
             {
                 weapon.Fire();
             }

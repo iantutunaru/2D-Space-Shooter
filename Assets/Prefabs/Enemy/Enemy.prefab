@@ -120,7 +120,7 @@ GameObject:
   - component: {fileID: 3856130706411750287}
   - component: {fileID: -4157832866056269553}
   - component: {fileID: -2530097526594269383}
-  - component: {fileID: 7374130791780394431}
+  - component: {fileID: 5140955250905865840}
   - component: {fileID: -2178476769455104187}
   - component: {fileID: -3233542191548107677}
   m_Layer: 0
@@ -246,8 +246,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed24030a9cb54c9438bbe8355701acef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canBeDestroyed: 0
-  screenBoundsPosition: 13.2
   enemy: {fileID: 3856130706411750287}
   enemyHealth: {fileID: -2530097526594269383}
 --- !u!114 &-2530097526594269383
@@ -266,7 +264,7 @@ MonoBehaviour:
   enemySounds: {fileID: -2178476769455104187}
   deathParticles: {fileID: 9095792083887419426, guid: 723ca5259e0206a4cab9ed07a8b51ad9, type: 3}
   damageFlash: {fileID: -3233542191548107677}
---- !u!114 &7374130791780394431
+--- !u!114 &5140955250905865840
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -275,11 +273,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 7416421309656685856}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 70388bbcd1fca854f91be49bb80e43f4, type: 3}
+  m_Script: {fileID: 11500000, guid: 88b83ef62ae55b546b2455ae3c5d0687, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   movementSpeed: 5
   outOfBoundsPosition: -16
+  topScreenBoundsYPosition: 13.2
+  enemyHealth: {fileID: -2530097526594269383}
 --- !u!114 &-2178476769455104187
 MonoBehaviour:
   m_ObjectHideFlags: 0
