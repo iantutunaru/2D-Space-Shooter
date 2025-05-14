@@ -9,12 +9,7 @@ namespace UI
         [SerializeField] private Slider generalVolumeSlider;
         [SerializeField] private Slider musicVolumeSlider;
         [SerializeField] private Slider sfxVolumeSlider;
-
-        private void Start()
-        {
-            UpdateSliders();
-        }
-
+        
         private void OnEnable()
         {
             UpdateSliders();

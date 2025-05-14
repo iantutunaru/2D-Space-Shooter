@@ -11,9 +11,11 @@ namespace Enemy
         public bool Returned { get; set; }
         public bool CanBeDamaged { get; set; }
         
+        [SerializeField] private int health = 1;
+        
         [Header("Enemy References")]
         [SerializeField] private Enemy enemy;
-        [SerializeField] private EnemySounds enemySounds;
+        [SerializeField] private Sounds.Sounds sounds;
         
         [Header("Assets")]
         [SerializeField] private ParticleSystem deathParticles;
@@ -24,11 +26,13 @@ namespace Enemy
         
         private void OnEnable()
         {
+            ResetHealth();
+            
             Returned = false;
             CanBeDamaged = false;
         }
 
-        public void Init(float health)
+        private void ResetHealth()
         {
             _maxHealth = health;
             _currentHealth = _maxHealth;
@@ -48,12 +52,11 @@ namespace Enemy
             if (_currentHealth > damage)
             {
                 _currentHealth -= damage;
-                enemySounds.PlayDamageSound();
+                sounds.PlayDamageSound();
                 damageFlash.CallDamageFlash();
             }
             else
             {
-                enemySounds.PlayDeathSound();
                 EnemyKilled();
             }
         }
@@ -61,17 +64,15 @@ namespace Enemy
         private void EnemyKilled()
         {
             OnEnemyDestroyed?.Invoke(enemy);
-            enemySounds.PlayDeathSound();
             
             var spawnedDeathParticles = Managers.ObjectPoolManager.SpawnObject(deathParticles.gameObject, 
                 transform.position, Quaternion.identity, Managers.ObjectPoolManager.PoolType.ParticleSystem);
-                
+            
             spawnedDeathParticles.GetComponent<ParticleSystem>().Play();
+            sounds.PlayDeathSound();
             
             Returned = true;
             Managers.ObjectPoolManager.ReturnObjectToPool(gameObject);
         }
-
-        
     }
 }

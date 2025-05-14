@@ -3,7 +3,7 @@ using UnityEngine.SceneManagement;
 
 namespace UI
 {
-    public class StartMenuControllerCanvas : MonoBehaviour
+    public class StartMenuController : MonoBehaviour
 
     {
         [SerializeField] private AudioSource buttonAudio;

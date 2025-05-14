@@ -21,10 +21,10 @@ namespace Managers
 
         public void PlaySoundFXClip(AudioClip audioClip, Transform spawnTransform, float volume)
         {
-            GameObject audioSourceGameObject = ObjectPoolManager.SpawnObject(soundFXObject.gameObject, 
+            var audioSourceGameObject = ObjectPoolManager.SpawnObject(soundFXObject.gameObject, 
                 spawnTransform.position, Quaternion.identity, ObjectPoolManager.PoolType.AudioSource);
         
-            AudioSource audioSource = audioSourceGameObject.GetComponent<AudioSource>();
+            var audioSource = audioSourceGameObject.GetComponent<AudioSource>();
         
             audioSource.clip = audioClip;
         
@@ -37,12 +37,12 @@ namespace Managers
     
         public void PlaySoundFXClip(AudioClip[] audioClips, Transform spawnTransform, float volume)
         {
-            int randomClip = Random.Range(0, audioClips.Length);
+            var randomClip = Random.Range(0, audioClips.Length);
         
-            GameObject audioSourceGameObject = ObjectPoolManager.SpawnObject(soundFXObject.gameObject, 
+            var audioSourceGameObject = ObjectPoolManager.SpawnObject(soundFXObject.gameObject, 
                 spawnTransform.position, Quaternion.identity, ObjectPoolManager.PoolType.AudioSource);
-        
-            AudioSource audioSource = audioSourceGameObject.GetComponent<AudioSource>();
+            
+            var audioSource = audioSourceGameObject.GetComponent<AudioSource>();
         
             audioSource.clip = audioClips[randomClip];
         
@@ -51,7 +51,6 @@ namespace Managers
             audioSource.Play();
         
             audioSourceGameObject.GetComponent<ReturnAudioToPool>().StartTimer(audioSource.clip.length);
-        
         }
     }
 }

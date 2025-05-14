@@ -12,19 +12,19 @@ namespace Player
         
         [SerializeField] private PlayerInput playerInput;
 
-        private readonly string _actionMapUI = "UI";
-        private readonly string _actionMapNormalPlayerInput = "Player";
-        
+        private const string ActionMapUI = "UI";
+        private const string ActionMapNormalPlayerInput = "Player";
+
         public void OnOpenMenu(InputValue value)
         {
-            PlayerManager.Instance.ChangeControlSchemeForAllPlayers(_actionMapUI);
+            PlayerManager.Instance.ChangeControlSchemeForAllPlayers(ActionMapUI);
             
             PauseGame?.Invoke();
         }
 
         public void OnCloseMenu(InputValue value)
         {
-            PlayerManager.Instance.ChangeControlSchemeForAllPlayers(_actionMapNormalPlayerInput);
+            PlayerManager.Instance.ChangeControlSchemeForAllPlayers(ActionMapNormalPlayerInput);
             
             ResumeGame?.Invoke();
         }

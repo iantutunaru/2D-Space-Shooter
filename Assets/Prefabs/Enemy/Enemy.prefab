@@ -121,7 +121,7 @@ GameObject:
   - component: {fileID: -4157832866056269553}
   - component: {fileID: -2530097526594269383}
   - component: {fileID: 5140955250905865840}
-  - component: {fileID: -2178476769455104187}
+  - component: {fileID: 4846167147922251213}
   - component: {fileID: -3233542191548107677}
   m_Layer: 0
   m_Name: Enemy
@@ -232,8 +232,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scoreGain: 100
-  health: 1
-  enemyHealth: {fileID: -2530097526594269383}
 --- !u!114 &-4157832866056269553
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -260,8 +258,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c18a840f622775846bf9c6feb8254795, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  health: 1
   enemy: {fileID: 3856130706411750287}
-  enemySounds: {fileID: -2178476769455104187}
+  enemySounds: {fileID: 0}
+  sounds: {fileID: 4846167147922251213}
   deathParticles: {fileID: 9095792083887419426, guid: 723ca5259e0206a4cab9ed07a8b51ad9, type: 3}
   damageFlash: {fileID: -3233542191548107677}
 --- !u!114 &5140955250905865840
@@ -280,7 +280,7 @@ MonoBehaviour:
   outOfBoundsPosition: -16
   topScreenBoundsYPosition: 13.2
   enemyHealth: {fileID: -2530097526594269383}
---- !u!114 &-2178476769455104187
+--- !u!114 &4846167147922251213
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -289,7 +289,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7416421309656685856}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 75bc6ef43eba747499d50f20d26e71cd, type: 3}
+  m_Script: {fileID: 11500000, guid: 39ae3a2e75943eb45923e6c9f2acbdd7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   damageSounds:

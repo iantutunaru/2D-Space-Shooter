@@ -4,10 +4,11 @@ namespace Player
 {
     public class PlayerPickupManager : MonoBehaviour
     {
+        [SerializeField] private PlayerSounds playerSounds;
+        
         [Header("Pickup Types")]
         [SerializeField] private PlayerShield playerShield;
-        [SerializeField] private PlayerSounds playerSounds;
-
+        
         public void PickedShieldUp()
         {
             playerShield.TurnShieldOn();

@@ -5,20 +5,15 @@ namespace Player
 {
     public class PlayerSounds : Sounds.Sounds
     {
-        [Header("Player Sounds")]
-        [SerializeField] private AudioClip[] shootingSounds;
+        [Range(0.01f, 1.0f)]
+        [SerializeField] private float shieldSoundVolume = 1f;
         
         [Header("Pickup Sounds")]
         [SerializeField] private AudioClip shieldSound;
-
-        public void PlayShootingSounds()
-        {
-            SoundFXManager.Instance.PlaySoundFXClip(shootingSounds, transform, 0.4f);
-        }
         
         public void PlayShieldSound()
         {
-            SoundFXManager.Instance.PlaySoundFXClip(shieldSound, transform, 1f);
+            SoundFXManager.Instance.PlaySoundFXClip(shieldSound, transform, shieldSoundVolume);
         }
     }
 }

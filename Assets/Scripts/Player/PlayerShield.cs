@@ -4,13 +4,19 @@ namespace Player
 {
     public class PlayerShield : MonoBehaviour
     {
-        [SerializeField] private Player player;
+        [SerializeField] private PlayerHealth playerHealth;
         [SerializeField] private GameObject playerShield;
         [Tooltip("How many seconds will the shield last.")]
         [SerializeField] private float shieldDuration = 5f;
         
-        private float _shieldTimer = 0;
-        private bool _isShieldActive = false;
+        private float _shieldTimer;
+        private bool _isShieldActive;
+
+        private void OnEnable()
+        {
+            _shieldTimer = 0;
+            _isShieldActive = false;
+        }
     
         private void Update()
         {
@@ -31,8 +37,8 @@ namespace Player
         
         public void TurnShieldOn()
         {
+            playerHealth.ToggleDamage();
             playerShield.SetActive(true);
-            player.ToggleDamage();
             
             _shieldTimer = 0;
             _isShieldActive = true;
@@ -40,7 +46,7 @@ namespace Player
 
         private void TurnShieldOff()
         {
-            player.ToggleDamage();
+            playerHealth.ToggleDamage();
             playerShield.SetActive(false);
             
             _shieldTimer = 0;

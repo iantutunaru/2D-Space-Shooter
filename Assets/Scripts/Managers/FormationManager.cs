@@ -27,7 +27,7 @@ namespace Managers
             var poolType = ChooseObjectPoolType(isObstacle);
             var objectToSpawn = ChooseObjectToSpawn(isObstacle);
             
-            for (int i = 0; i < numberOfObjectsInFormation; i++)
+            for (var i = 0; i < numberOfObjectsInFormation; i++)
             {
                 var spawnedEnemy = ObjectPoolManager.SpawnObject(objectToSpawn, nextPosition, 
                                                                 nextObstacleRotation, poolType);

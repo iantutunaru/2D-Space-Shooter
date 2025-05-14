@@ -9,8 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7960887932452220374}
-  - component: {fileID: 5237084100671477565}
-  - component: {fileID: 6820388734046844604}
+  - component: {fileID: 8004677058329114183}
   m_Layer: 0
   m_Name: Gun
   m_TagString: Untagged
@@ -33,7 +32,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 6618087673655815997}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 180}
---- !u!114 &5237084100671477565
+--- !u!114 &8004677058329114183
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -42,29 +41,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 2802958583242407656}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ac17bc20abba7114483061f06f9af0d0, type: 3}
+  m_Script: {fileID: 11500000, guid: dccf5b093900fe343a373bc889128234, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  autoFire: 1
-  fireRate: 2
+  reloadTime: 2
   projectile: {fileID: 5926845827733166757, guid: df68bcff28c7d284eaa2778ea81e1b4b, type: 3}
-  weaponSounds: {fileID: 6820388734046844604}
---- !u!114 &6820388734046844604
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2802958583242407656}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f692b7c8ec53f6245a311716085b3f74, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  shootingSounds:
-  - {fileID: 8300000, guid: 523883aa299f5644da7affa6ffecd520, type: 3}
-  - {fileID: 8300000, guid: 3cd0e6b9c022b6246b93a7034044063b, type: 3}
-  - {fileID: 8300000, guid: 6a5f0ee84444d4b44b71b3d169964387, type: 3}
+  sounds: {fileID: 7602151056451702287}
+  autoFire: 1
 --- !u!1001 &3080830773284623298
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -76,6 +59,10 @@ PrefabInstance:
     - target: {fileID: -4157832866056269553, guid: 707486ccabd6c184facd4600a86c3dea, type: 3}
       propertyPath: scoreValue
       value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: -2530097526594269383, guid: 707486ccabd6c184facd4600a86c3dea, type: 3}
+      propertyPath: health
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3856130706411750287, guid: 707486ccabd6c184facd4600a86c3dea, type: 3}
       propertyPath: health
@@ -89,6 +76,22 @@ PrefabInstance:
       propertyPath: movementSpeed
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 4846167147922251213, guid: 707486ccabd6c184facd4600a86c3dea, type: 3}
+      propertyPath: shootingSounds.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4846167147922251213, guid: 707486ccabd6c184facd4600a86c3dea, type: 3}
+      propertyPath: shootingSounds.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: 523883aa299f5644da7affa6ffecd520, type: 3}
+    - target: {fileID: 4846167147922251213, guid: 707486ccabd6c184facd4600a86c3dea, type: 3}
+      propertyPath: shootingSounds.Array.data[1]
+      value: 
+      objectReference: {fileID: 8300000, guid: 6a5f0ee84444d4b44b71b3d169964387, type: 3}
+    - target: {fileID: 4846167147922251213, guid: 707486ccabd6c184facd4600a86c3dea, type: 3}
+      propertyPath: shootingSounds.Array.data[2]
+      value: 
+      objectReference: {fileID: 8300000, guid: 3cd0e6b9c022b6246b93a7034044063b, type: 3}
     - target: {fileID: 7374130791780394431, guid: 707486ccabd6c184facd4600a86c3dea, type: 3}
       propertyPath: movementSpeed
       value: 3
@@ -173,3 +176,14 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8149655979405720831, guid: 707486ccabd6c184facd4600a86c3dea, type: 3}
   m_PrefabInstance: {fileID: 3080830773284623298}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &7602151056451702287 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4846167147922251213, guid: 707486ccabd6c184facd4600a86c3dea, type: 3}
+  m_PrefabInstance: {fileID: 3080830773284623298}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5489083793870524130}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39ae3a2e75943eb45923e6c9f2acbdd7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

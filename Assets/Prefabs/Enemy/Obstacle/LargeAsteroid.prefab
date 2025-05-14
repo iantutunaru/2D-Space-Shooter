@@ -72,6 +72,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: LargeAsteroid
       objectReference: {fileID: 0}
+    - target: {fileID: 2941662717666682601, guid: ab88211c457343240ba3d0b5199cd3d4, type: 3}
+      propertyPath: health
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 3638277490919405791, guid: ab88211c457343240ba3d0b5199cd3d4, type: 3}
       propertyPath: scoreValue
       value: 75

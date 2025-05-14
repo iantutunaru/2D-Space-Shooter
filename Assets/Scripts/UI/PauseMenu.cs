@@ -27,12 +27,12 @@ namespace UI
     
         private void OnEnable()
         {
-            Player.Player.GameOver += GameOver;
+            Player.PlayerHealth.GameOver += GameOver;
         }
 
         private void OnDisable()
         {
-            Player.Player.GameOver -= GameOver;
+            Player.PlayerHealth.GameOver -= GameOver;
         }
     
         public void Resume()
@@ -42,6 +42,8 @@ namespace UI
 
         public void Pause()
         {
+            Cursor.visible = true;
+            
             PlayerManager.Instance.ChangeControlSchemeForAllPlayers("UI");
             
             pauseMenu.SetActive(true);
@@ -49,6 +51,8 @@ namespace UI
 
         public void Unpause()
         {
+            Cursor.visible = false;
+            
             PlayerManager.Instance.ChangeControlSchemeForAllPlayers("Player");
             
             pauseMenu.SetActive(false);
@@ -84,8 +88,11 @@ namespace UI
             PlayerManager.Instance.ChangeControlSchemeForAllPlayers("UI");
             
             Cursor.visible = true;
+            
             GameUI.Instance.gameObject.SetActive(false);
-            scoreText.text = "You score is:" + System.Environment.NewLine + ScoreManager.Instance.GetScore() + " points";
+            
+            scoreText.text = "You score is:" + Environment.NewLine + ScoreManager.Instance.GetScore() + " points";
+            
             gameOverMenu.SetActive(true);
         }
     }

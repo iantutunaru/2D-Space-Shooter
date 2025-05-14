@@ -1,4 +1,6 @@
+using System;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Managers
 {
@@ -10,15 +12,21 @@ namespace Managers
         [Header("Manager References")]
         [SerializeField] private SpawnManager spawnManager;
     
-        private float _waveTimer = 0;
-        private float _pickupTimer = 0;
+        private float _waveTimer;
+        private float _pickupTimer;
         
         private const int OutOfBoundsWave = 0;
         private const int LineFormationWave = 1;
         private const int AsteroidWave = 2;
         private const int LargeAsteroidWave = 3;
-        
-        private void Update()
+
+        private void Start()
+        {
+            _waveTimer = 0;
+            _pickupTimer = 0;
+        }
+
+        private void FixedUpdate()
         {
             CreateWave();
             CreatePickup();
@@ -29,6 +37,7 @@ namespace Managers
             if (_waveTimer >= timeBetweenWaves)
             {
                 SpawnWave();
+                
                 _waveTimer = 0.0f;
             } else {
                 _waveTimer += Time.deltaTime;
@@ -66,6 +75,7 @@ namespace Managers
             if (_pickupTimer >= timeBetweenPickups)
             {
                 spawnManager.SpawnPickup();
+                
                 _pickupTimer = 0.0f;
             }
             else

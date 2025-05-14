@@ -7,6 +7,5 @@ namespace Pickups
     {
         public bool Returned { get; set; }
         public abstract void GivePickupEffect(Collider2D collision);
-
     }
 }

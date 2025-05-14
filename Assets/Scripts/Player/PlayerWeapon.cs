@@ -1,57 +1,37 @@
-using System;
-using Interfaces;
 using Managers;
-using Projectiles;
 using UnityEngine;
-using UnityEngine.Serialization;
+using Weapons;
 
 namespace Player
 {
-    public class PlayerWeapon : MonoBehaviour, IFireable
+    public class PlayerWeapon : Weapon
     {
-        [SerializeField] private Projectile projectile;
-        [SerializeField] private float reloadTime = 1;
-        
-        [Header("Weapon references")]
+        [Header("Player Weapon References")]
         [SerializeField] private Transform[] weaponLocations;
         [SerializeField] private Animator weaponAnimator;
-        [SerializeField] private PlayerSounds playerWeaponSounds;
-
-        private bool _weaponReloaded;
         
-        private float _currentReloadTimer;
-        private readonly string _gunShot = "WeaponShot";
-
-        private void OnEnable()
-        {
-            _weaponReloaded = false;
-            _currentReloadTimer = reloadTime;
-        }
+        private const string GunShot = "WeaponShot";
+        private static readonly int WeaponShot = Animator.StringToHash(GunShot);
 
         private void FixedUpdate()
         {
-            if (_currentReloadTimer < reloadTime)
+            if (!WeaponReloaded)
             {
-                _currentReloadTimer += Time.deltaTime;
-            }
-            else
-            {
-                _weaponReloaded = true;
-                _currentReloadTimer = 0;
+                WeaponReloaded = Reload();
             }
         }
         
-        public void Fire()
-        {
-            if (!_weaponReloaded) return;
+        public new void Fire()
+        {  
+            if (!WeaponReloaded) return;
             
-            playerWeaponSounds.PlayShootingSounds();
+            sounds.PlayShootingSounds();
             
             ShootFromAllBarrels();
         
-            weaponAnimator.SetTrigger(_gunShot);
+            weaponAnimator.SetTrigger(WeaponShot);
             
-            _weaponReloaded = false;
+            WeaponReloaded = false;
         }
 
         private void ShootFromAllBarrels()

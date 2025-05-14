@@ -288,7 +288,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0c7515e1a12834469ca1ea14e31096c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 8624633767763148060}
+  playerHealth: {fileID: 7720044454646180465}
   playerShield: {fileID: 397695167551197048}
   shieldDuration: 5
 --- !u!1 &1317252420522967382
@@ -338,13 +338,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5739ba46b12334446abb76b5a8b287b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectile: {fileID: 4328117949792878862, guid: 2bd78671d6109e840a823937122a33ef, type: 3}
   reloadTime: 0.5
+  projectile: {fileID: 4328117949792878862, guid: 2bd78671d6109e840a823937122a33ef, type: 3}
+  sounds: {fileID: 3920603345475004359}
   weaponLocations:
   - {fileID: 6784235866965769212}
   - {fileID: 8241748324254966261}
   weaponAnimator: {fileID: 6561012229301652472}
-  playerWeaponSounds: {fileID: 3920603345475004359}
 --- !u!1 &2790600319187210808
 GameObject:
   m_ObjectHideFlags: 0
@@ -697,10 +697,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8927ca5f33703e3499095894ba24e009, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerHealth: {fileID: 7720044454646180465}
   playerInput: {fileID: 7916193097609066685}
   startingPosition: {fileID: 0}
-  maxHealth: 4
   playerRigidbody: {fileID: 6355533943303462802}
   playerCollider: {fileID: 8744730333254609691}
   playerSprite: {fileID: 2317966075030468570}
@@ -734,11 +732,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7412c0c2e941b5547878a5183a2d2168, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  health: 4
+  canBeDamaged: 0
   player: {fileID: 8624633767763148060}
   playerSounds: {fileID: 3920603345475004359}
   playerAnimator: {fileID: 1599402592113046918}
   deathParticles: {fileID: 9095792083887419426, guid: 723ca5259e0206a4cab9ed07a8b51ad9, type: 3}
-  invincible: 1
+  invincible: 0
 --- !u!114 &3555830721311356127
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -765,8 +765,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64641ae995b9b554a9ec94cc4f20800a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerShield: {fileID: 368578633227130628}
   playerSounds: {fileID: 3920603345475004359}
+  playerShield: {fileID: 368578633227130628}
 --- !u!114 &258927942676892772
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -820,6 +820,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7945000f84b119f44a5a402ce792abdf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damageSoundVolume: 0.5
+  deathSoundVolume: 1
+  shootingSoundsVolume: 0.5
   damageSounds:
   - {fileID: 8300000, guid: a56be8f294e500d409d98b8490eae866, type: 3}
   deathSounds:
@@ -828,6 +831,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: a036770732259464a9bd5516956f5091, type: 3}
   - {fileID: 8300000, guid: 9c6efe11480abc140be514e041f5d497, type: 3}
   - {fileID: 8300000, guid: fcb370601b3c5c84698a2be4793bcb4f, type: 3}
+  shieldSoundVolume: 1
   shieldSound: {fileID: 8300000, guid: 9dc1134d3594cdb47af260d99c22b72a, type: 3}
 --- !u!1 &5168808816385877572
 GameObject:

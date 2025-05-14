@@ -5,37 +5,46 @@ using UnityEngine;
 
 namespace Weapons
 {
-    public class Weapon : MonoBehaviour, IFireable
+    public abstract class Weapon : MonoBehaviour, IFireable
     {
-        [SerializeField] private bool autoFire = true;
-        [SerializeField] private float fireRate = 0.5f;
+        [SerializeField] private float reloadTime = 2;
     
         [Header("Weapon assets")]
-        [SerializeField] private Projectile projectile;
-        [SerializeField] private WeaponSounds weaponSounds;
-    
-        private float _fireRateTimer = 0f;
-    
-        private void Update()
-        {
-            if (!autoFire) return;
+        [SerializeField] protected Projectile projectile;
+        [SerializeField] protected Sounds.Sounds sounds;
+
+        protected bool WeaponReloaded;
+        private float _currentReloadTimer;
         
-            if (_fireRateTimer >= fireRate)
+        private void OnEnable()
+        {
+            WeaponReloaded = true;
+            _currentReloadTimer = 0;
+        }
+        
+        protected bool Reload()
+        {
+            if (_currentReloadTimer < reloadTime)
             {
-                Fire();
-                _fireRateTimer = 0f;
+                _currentReloadTimer += Time.deltaTime;
             }
             else
             {
-                _fireRateTimer += Time.deltaTime;
+                _currentReloadTimer = 0;
+                
+                return true;
             }
+            
+            return false;
         }
 
         public void Fire()
         {
-            weaponSounds.PlayShootingSounds();
+            sounds.PlayShootingSounds();
             ObjectPoolManager.SpawnObject(projectile.gameObject, transform.position, Quaternion.identity, 
                                                                             ObjectPoolManager.PoolType.Projectile);
+
+            WeaponReloaded = false;
         }
     }
 }

@@ -8,21 +8,22 @@ namespace Managers
         public static PlayerManager Instance;
         
         private List<Player.Player> _players;
-        private const int SpPlayerSpawn = 8;
-        
+
+        private const string ControlSchemeGame = "Player";
+
         private void Awake()
         {
-            if (Instance == null)
-            {
-                Instance = this;
+            if (Instance != null) return;
+            
+            Instance = this;
                 
-                _players = new List<Player.Player>();
-            }
+            _players = new List<Player.Player>();
         }
 
-        public void AddNewPlayer(Player.Player player)
+        public void AddNewPlayerOnGameStart(Player.Player player)
         {
             _players.Add(player);
+            ChangeControlSchemeForAllPlayers(ControlSchemeGame);
         }
 
         public bool RemovePlayer(Player.Player player)

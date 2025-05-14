@@ -6,18 +6,14 @@ namespace Pickups
 {
     public class PickupShield : Pickup
     {
-        private bool _returned = false;
-        
-        public new bool Returned => _returned;
-
         private void OnEnable()
         {
-            _returned = false;
+            Returned = false;
         }
 
         public override void GivePickupEffect(Collider2D collision)
         {
-            if (_returned) return;
+            if (Returned) return;
             
             if (!CheckIfPlayerCanUseShield(collision)) return;
             
@@ -25,16 +21,16 @@ namespace Pickups
         
             playerPickupManager.PickedShieldUp();
             
-            _returned = true;
+            Returned = true;
             
             ObjectPoolManager.ReturnObjectToPool(gameObject);
         }
         
         private bool CheckIfPlayerCanUseShield(Collider2D collision)
         {
-            var player = collision.gameObject.GetComponent<Player.Player>();
+            var playerHealth = collision.gameObject.GetComponent<Player.PlayerHealth>();
 
-            return player.CanBeDamaged();
+            return playerHealth.CanBeDamaged();
         }
     }
 }

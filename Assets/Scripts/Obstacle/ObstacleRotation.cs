@@ -8,7 +8,7 @@ namespace Obstacle
 
         private void FixedUpdate()
         {
-            Quaternion rotation = transform.rotation;
+            var rotation = transform.rotation;
         
             rotation.eulerAngles += new Vector3(0f, 0f, rotationSpeed * Time.deltaTime);
         

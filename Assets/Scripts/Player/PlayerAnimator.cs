@@ -5,7 +5,7 @@ namespace Player
     public class PlayerAnimator : MonoBehaviour
     {
         private static readonly int FMoveSpeed = Animator.StringToHash("f_moveSpeed");
-        private static readonly int FHealth = Animator.StringToHash("Health");
+        private static readonly int FHealth = Animator.StringToHash("f_health");
     
         [Header("Player References")]
         [SerializeField] private Animator playerAnimator;

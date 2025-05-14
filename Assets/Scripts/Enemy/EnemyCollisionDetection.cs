@@ -12,6 +12,8 @@ namespace Enemy
         
         public void OnTriggerEnter2D(Collider2D collision)
         {
+            if (enemyHealth.Returned) return;
+            
             if (!enemyHealth.CanBeDamaged) return;
 
             CheckIfCollidedWithPlayer(collision);
@@ -19,13 +21,12 @@ namespace Enemy
 
         private void CheckIfCollidedWithPlayer(Collider2D collision)
         {
-            var player = collision.GetComponent<Player.Player>();
+            var playerHealth = collision.GetComponent<Player.PlayerHealth>();
             
-            if (player == null) return;
+            if (playerHealth == null) return;
 
-            if (player.CanBeDamaged())
+            if (playerHealth.CanBeDamaged())
             {
-                var playerHealth = collision.GetComponent<PlayerHealth>();
                 playerHealth.Damage();
             }
             

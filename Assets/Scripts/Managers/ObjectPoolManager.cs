@@ -68,8 +68,6 @@ namespace Managers
         {
             var pool = ObjectPools.Find(p => p.LookupString == objectToSpawn.name);
             
-            Debug.Log(objectToSpawn.name + " to spawn");
-
             if (pool == null)
             {
                 pool = new PooledObjectInfo() { LookupString = objectToSpawn.name };
@@ -80,7 +78,7 @@ namespace Managers
 
             if (spawnableObject == null)
             {
-                GameObject parentObject = SetParentObject(poolType);
+                var parentObject = SetParentObject(poolType);
             
                 spawnableObject = Instantiate(objectToSpawn, spawnPosition, spawnRotation);
 
@@ -91,8 +89,6 @@ namespace Managers
             }
             else
             {
-                Debug.Log(spawnableObject.gameObject.name + " reused");
-                
                 spawnableObject.transform.position = spawnPosition;
                 spawnableObject.transform.rotation = spawnRotation;
                 pool.InactiveObjects.Remove(spawnableObject);
@@ -104,7 +100,7 @@ namespace Managers
     
         public static GameObject SpawnObject(GameObject objectToSpawn, Transform parentTransform)
         {
-            PooledObjectInfo pool = ObjectPools.Find(p => p.LookupString == objectToSpawn.name);
+            var pool = ObjectPools.Find(p => p.LookupString == objectToSpawn.name);
 
             if (pool == null)
             {
@@ -112,7 +108,7 @@ namespace Managers
                 ObjectPools.Add(pool);
             }
         
-            GameObject spawnableObject = pool.InactiveObjects.FirstOrDefault();
+            var spawnableObject = pool.InactiveObjects.FirstOrDefault();
 
             if (spawnableObject == null)
             {
@@ -129,11 +125,9 @@ namespace Managers
 
         public static void ReturnObjectToPool (GameObject objectToReturn)
         {
-            string goName = objectToReturn.name.Substring(0, objectToReturn.name.Length - 7);
-            
-            Debug.Log(goName);
+            var goName = objectToReturn.name.Substring(0, objectToReturn.name.Length - 7);
         
-            PooledObjectInfo pool = ObjectPools.Find(p => p.LookupString == goName);
+            var pool = ObjectPools.Find(p => p.LookupString == goName);
 
             if (pool == null)
             {
@@ -148,35 +142,18 @@ namespace Managers
 
         private static GameObject SetParentObject(PoolType poolType)
         {
-            switch (poolType)
+            return poolType switch
             {
-                case PoolType.Player:
-                    return _playersEmpty;
-            
-                case PoolType.Enemy:
-                    return _enemiesEmpty;
-                
-                case PoolType.Obstacle:
-                    return _obstaclesEmpty;
-                
-                case PoolType.Pickup:
-                    return _pickupsEmpty;
-            
-                case PoolType.Projectile:
-                    return _projectilesEmpty;
-            
-                case PoolType.ParticleSystem:
-                    return _particleSystemsEmpty;
-            
-                case PoolType.AudioSource:
-                    return _audioSourcesEmpty;
-                
-                case PoolType.None:
-                    return null;
-                
-                default:
-                    return null;
-            }
+                PoolType.Player => _playersEmpty,
+                PoolType.Enemy => _enemiesEmpty,
+                PoolType.Obstacle => _obstaclesEmpty,
+                PoolType.Pickup => _pickupsEmpty,
+                PoolType.Projectile => _projectilesEmpty,
+                PoolType.ParticleSystem => _particleSystemsEmpty,
+                PoolType.AudioSource => _audioSourcesEmpty,
+                PoolType.None => null,
+                _ => null
+            };
         }
     }
 
