@@ -26,7 +26,7 @@ namespace Weapons
         {
             if (_currentReloadTimer < reloadTime)
             {
-                _currentReloadTimer += Time.deltaTime;
+                _currentReloadTimer += Time.fixedDeltaTime;
             }
             else
             {

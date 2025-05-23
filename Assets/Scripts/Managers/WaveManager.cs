@@ -40,7 +40,7 @@ namespace Managers
                 
                 _waveTimer = 0.0f;
             } else {
-                _waveTimer += Time.deltaTime;
+                _waveTimer += Time.fixedDeltaTime;
             }
         }
         
@@ -80,7 +80,7 @@ namespace Managers
             }
             else
             {
-                _pickupTimer += Time.deltaTime;
+                _pickupTimer += Time.fixedDeltaTime;
             }
         }
     }

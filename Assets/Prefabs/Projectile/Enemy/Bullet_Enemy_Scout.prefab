@@ -100,8 +100,41 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bullet_Enemy_Scout
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5229096241666045608, guid: a3f1f48dae9a40d4fa7a5e2a02b0ff33, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8869326804702999370, guid: a3f1f48dae9a40d4fa7a5e2a02b0ff33, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4351227363450888826}
   m_SourcePrefab: {fileID: 100100000, guid: a3f1f48dae9a40d4fa7a5e2a02b0ff33, type: 3}
+--- !u!1 &2587973825341318838 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8869326804702999370, guid: a3f1f48dae9a40d4fa7a5e2a02b0ff33, type: 3}
+  m_PrefabInstance: {fileID: 6412133865952269820}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &4351227363450888826
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2587973825341318838}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 362e26d5518edb741af55a043da08b45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  projectile: {fileID: 5926845827733166757}
+--- !u!114 &5926845827733166757 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 773523094024015705, guid: a3f1f48dae9a40d4fa7a5e2a02b0ff33, type: 3}
+  m_PrefabInstance: {fileID: 6412133865952269820}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2587973825341318838}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b85689444be14f42b9c599b5e056ba0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
