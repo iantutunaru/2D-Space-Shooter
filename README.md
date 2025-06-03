@@ -17,3 +17,6 @@ Currently, the project features a 2D vertical scroller gameplay where the player
 
 ## Contributing
 Your contributions are welcome! Please feel free to submit pull requests or open issues to discuss potential improvements or fixes.
+
+## Playable Demo
+https://play.unity.com/en/games/7b6960d2-b231-4c00-a763-d2136cc56bde/2d-space-shooter
